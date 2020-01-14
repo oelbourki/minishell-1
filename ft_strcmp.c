@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-bour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:28:51 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/14 18:28:52 by oel-bour         ###   ########.fr       */
+/*   Created: 2019/12/02 20:37:35 by oel-bour          #+#    #+#             */
+/*   Updated: 2019/12/02 20:37:45 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-
-int main(int argc,char **argv)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    char path[256];
-    if (argc == 1)
-    {
-        printf("%s",getcwd(path,256));
-        printf("\n");
-    }else
-    {
-        printf("pwd: too many arguments");
-    }
-    
-    return 0;
+	size_t i;
+
+	i = 0;
+	while ((s1[i] == s2[i]) && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:28:51 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/14 18:28:52 by oel-bour         ###   ########.fr       */
+/*   Created: 2020/01/14 18:29:17 by oel-bour          #+#    #+#             */
+/*   Updated: 2020/01/14 18:29:18 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
+int tab[10];
 
-
-int main(int argc,char **argv)
+int     main()
 {
-    char path[256];
-    if (argc == 1)
+    pid_t id;
+
+    id = fork();
+    if (id == 0)
     {
-        printf("%s",getcwd(path,256));
-        printf("\n");
-    }else
-    {
-        printf("pwd: too many arguments");
+        puts("i am in child");
+        i += 5;
     }
-    
-    return 0;
+    wait(NULL);
+    i++;
+    printf("%d\n",i);
 }

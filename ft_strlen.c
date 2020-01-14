@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-bour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:28:51 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/14 18:28:52 by oel-bour         ###   ########.fr       */
+/*   Created: 2019/10/10 19:24:02 by oel-bour          #+#    #+#             */
+/*   Updated: 2019/10/10 19:24:05 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-
-int main(int argc,char **argv)
+size_t	ft_strlen(const char *s)
 {
-    char path[256];
-    if (argc == 1)
-    {
-        printf("%s",getcwd(path,256));
-        printf("\n");
-    }else
-    {
-        printf("pwd: too many arguments");
-    }
-    
-    return 0;
+	size_t i;
+
+	if (s == NULL)
+		return (-1);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }

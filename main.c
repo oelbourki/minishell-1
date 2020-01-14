@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:28:51 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/14 18:28:52 by oel-bour         ###   ########.fr       */
+/*   Created: 2020/01/14 18:29:03 by oel-bour          #+#    #+#             */
+/*   Updated: 2020/01/14 18:29:04 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-
-int main(int argc,char **argv)
+#include <stdio.h>
+#include <sys/types.h> 
+#include <unistd.h>
+int main()
 {
-    char path[256];
-    if (argc == 1)
-    {
-        printf("%s",getcwd(path,256));
-        printf("\n");
-    }else
-    {
-        printf("pwd: too many arguments");
-    }
-    
+
+    fork();
+    printf("bissmiallah\n");
     return 0;
 }

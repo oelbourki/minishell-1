@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   try_pipeshell.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 18:28:56 by oel-bour          #+#    #+#             */
+/*   Updated: 2020/01/14 18:28:57 by oel-bour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int   echo(char **arg);
@@ -16,10 +28,11 @@ void    displayPrompt()
 // 	return 0;
 // }
 
-int   ft_ex(char **arg,char **env)
+int   ft_ex(char **arg)
 {
 	int pid;
 	int status;
+	char *line;
 	int fd[2];
 	pipe(fd);
 	if ((pid = fork()) == -1)
@@ -29,12 +42,24 @@ int   ft_ex(char **arg,char **env)
 	}
 	else if (pid == 0)
 	{
-		if (execve(arg[0],&arg[0],env))
+		close(fd[0]);
+		dup2(fd[1],STDOUT_FILENO);
+		if (execve(arg[0],&arg[0],NULL))
 			perror("exceve");
 		return 1;
 	}
 	else 
+	{
+				close(fd[1]);
 		wait(&status);
+
+		dup2(fd[0],STDIN_FILENO);
+		get_next_line(0,&line);
+			printf(">>>>>>>>>>%s\n",line);
+	}
+	close(fd[1]);
+	close(fd[0]);
+
 	return 0;
 }
 // int   pwd(char **arg)
@@ -81,7 +106,6 @@ int main(int argc, char *argv[])
 {
 	char *buffer;
 	char *line;
-	char **env;
 	int stat = 1;
 	char **cmd;
 	static  char *environ[256] = {0};
@@ -90,10 +114,10 @@ int main(int argc, char *argv[])
 		displayPrompt();
 		get_next_line(0,&buffer);
 		cmd = cmd_proce(buffer);
-		ft_ex(cmd,env);
+		ft_ex(cmd);
 		if (!strcmp(cmd[0],"exit"))
 			stat = 0;
-		free(buffer);
+	free(buffer);
 	}
 	return 0;
 }
