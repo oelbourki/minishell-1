@@ -3,39 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 22:25:29 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/13 21:40:57 by ibaali           ###   ########.fr       */
+/*   Created: 2020/01/14 18:28:40 by oel-bour          #+#    #+#             */
+/*   Updated: 2020/01/14 18:28:41 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
-#include <unistd.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <errno.h>
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
-#define MAX_PATH 1024
-#define EXIST 1
-#define NOT_EXIST 0
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include "get_next_line.h"
+#include "libft.h"
+#include <fcntl.h>
+int fd_p[2];
 
-typedef struct  s_cmd
+typedef struct s_cmd
 {
-    char            **argument;
-    int             red_create_output;
-    int             red_append_output;
-    int             red_input;
-    char            *file_input;
-    char            *file_output;
-    struct  s_cmd   *next;
-}               t_cmd;
+    char **main_cmd;
+    int simple;
+    int pipe;
+    char *file;
+    int red;
+}t_cmd;
+const static char *commands[] = {
+    "echo",
+    "cd",
+    "pwd",
+    "export",
+    "unset",
+    "env",
+    "exit",
+};
 
+const static char *redirection[] = {
+    "<",
+    ">",
+    ">>",
+};
 
-int		skip_white_space(char *str, int i);
-int		is_this_command(char *line, char *command);
+const static char *not[] = {
+    "|",
+    ";",
+};
 
-#endif
+static int i;
+static int j;
+typedef struct s_env
+{
+    char *data;
+    struct s_env *next;
+}t_env;
+
