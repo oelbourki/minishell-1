@@ -14,19 +14,6 @@
 
 void	print_strcut(t_cmd *list)
 {
-<<<<<<< HEAD
-	int i = 0;
-	while (list->argument[i])
-	{
-		printf("arg[%d]%s\n",i,list->argument[i]);
-		i++;
-	}
-	printf("red_create_output[%d]\n",list->red_create_output);
-	printf("red_append_output[%d]\n",list->red_append_output);
-	printf("red_input[%d]\n",list->red_input);
-	printf("file_input>>[%s]\n",list->file_input);
-	printf("file_input>>[%s]\n",list->file_output);
-=======
 	int		i;
 
 	i = 0;
@@ -51,11 +38,12 @@ void	init_strcut(t_cmd *list)
 	list->file_input = NULL;
 	list->file_output = NULL;
 	list->next = NULL;
->>>>>>> master
 }
 
-void space_split(char *ag,t_cmd *list)
+t_cmd * space_split(char *ag)
 {
+	t_cmd *list = (t_cmd*)malloc(sizeof(t_cmd));
+	init_strcut(list);
 	list->argument = ft_split(ag,' ');
 	int i = 0;
 	while (list->argument[i])
@@ -82,20 +70,24 @@ void space_split(char *ag,t_cmd *list)
 		}
 		i++;
 	}
-	print_strcut(list);
+	return list;
 }
 
-void 	pipe_split(char *ag,t_cmd *list)
+t_cmd* 	pipe_split(char *ag)
 {
 	char **sp = ft_split(ag,'|');
 	if (sp == NULL)
 		perror(NULL);
+	t_cmd *head;
+	t_cmd *tmp = head;
 	int i = 0;
 	while (sp[i])
 	{
-		space_split(sp[i], list);
+		tmp = space_split(sp[i]);
+		tmp = tmp->next;
 		i++;
 	}
+	return head;
 }
 int		main(void)
 {
@@ -103,7 +95,7 @@ int		main(void)
 	char	*tmp;
 	int		i;
 	int		P_id;
-	t_cmd	*list[256];
+	t_cmd	**list = malloc(sizeof(t_cmd*)* 256);
 	while (1)
 	{
 		ft_putstr_fd("root@e2r10p5:~# ", 1);
@@ -117,9 +109,7 @@ int		main(void)
 		i = 0;
 		while (ag[i] != NULL)
 		{
-			list[i] = (t_cmd*)malloc(sizeof(t_cmd));
-			init_strcut(list[i]);
-			pipe_split(ag[i], list[i]);
+			list[i] = pipe_split(ag[i]);
 			print_strcut(list[i]);
 			i++;
 		}
