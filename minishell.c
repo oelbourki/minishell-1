@@ -50,11 +50,13 @@
 void 	pipe_split(char *ag,t_cmd *list)
 {
 	char **sp = ft_split(ag,'|');
+	if (sp == NULL)
+		perror(NULL);
 	int i = 0;
 	while (sp[i])
 	{
 		//space_split(sp[i], list);
-
+		printf("%s\n",sp[i]);
 		i++;
 	}
 }
@@ -74,12 +76,14 @@ int		main(void)
 		command = ft_strtrim(command, " \t");
 		free(tmp);
 		char **ag = ft_split(command, ';');
+		if (ag == NULL)
+			perror(NULL);
 		i = 0;
 		while (ag[i] != NULL)
 		{
 			list[i]->ag[0] = strdup("wale");
 			pipe_split(ag[i], list[i]);
-			printf("command = $%s$\n", list[i]->ag[0]);
+			printf("command = $%s$\n", ag[i]);
 			i++;
 		}
 		free(command);
