@@ -13,39 +13,39 @@
 #include "minishell.h"
 
 
-void space_split(char *ag,t_cmd *list)
-{
-	// char **sp = ft_split(ag,' ');
-	printf("before = $%s$\n", list->ag[0]);
-	list->ag = ft_split(ag,' ');
-	printf("after = $%s$\n", list->ag[0]);
-	int i = 0;
-	while (list->ag[i])
-	{
-		if (!strcmp(list->ag[i], ">") || !strcmp(list->ag[i], ">>") || !strcmp(list->ag[i], "<"))
-		{
-			if (!strcmp(list->ag[i], ">"))
-			{
-				list->red_create_output = 1;
-				strcpy(list->file_output, list->ag[i+ 1]);
-			}
-			else if (!strcmp(list->ag[i], ">>"))
-			{
-				list->red_append_output = 1;
-				strcpy(list->file_output, list->ag[i+ 1]);
-			}
-			else if (!strcmp(list->ag[i], "<"))
-			{
-				list->red_input = 1;
-				strcpy(list->file_input, list->ag[i+ 1]);
-			}
-			free(list->ag[i]);
-			list->ag[i] = NULL;
-		}
-		i++;
-	}
-	// list->ag = sp;
-}
+// void space_split(char *ag,t_cmd *list)
+// {
+// 	// char **sp = ft_split(ag,' ');
+// 	printf("before = $%s$\n", list->ag[0]);
+// 	list->ag = ft_split(ag,' ');
+// 	printf("after = $%s$\n", list->ag[0]);
+// 	int i = 0;
+// 	while (list->ag[i])
+// 	{
+// 		if (!strcmp(list->ag[i], ">") || !strcmp(list->ag[i], ">>") || !strcmp(list->ag[i], "<"))
+// 		{
+// 			if (!strcmp(list->ag[i], ">"))
+// 			{
+// 				list->red_create_output = 1;
+// 				strcpy(list->file_output, list->ag[i+ 1]);
+// 			}
+// 			else if (!strcmp(list->ag[i], ">>"))
+// 			{
+// 				list->red_append_output = 1;
+// 				strcpy(list->file_output, list->ag[i+ 1]);
+// 			}
+// 			else if (!strcmp(list->ag[i], "<"))
+// 			{
+// 				list->red_input = 1;
+// 				strcpy(list->file_input, list->ag[i+ 1]);
+// 			}
+// 			free(list->ag[i]);
+// 			list->ag[i] = NULL;
+// 		}
+// 		i++;
+// 	}
+// 	// list->ag = sp;
+// }
 
 void 	pipe_split(char *ag,t_cmd *list)
 {
@@ -53,7 +53,8 @@ void 	pipe_split(char *ag,t_cmd *list)
 	int i = 0;
 	while (sp[i])
 	{
-		space_split(sp[i], list);
+		//space_split(sp[i], list);
+
 		i++;
 	}
 }
@@ -79,16 +80,6 @@ int		main(void)
 			list[i]->ag[0] = strdup("wale");
 			pipe_split(ag[i], list[i]);
 			printf("command = $%s$\n", list[i]->ag[0]);
-		// 	if ((P_id = fork()) < 0)
-		// 	{
-		// 		free(command);
-		// 		sterror(errno);
-		// 		return (-1);
-		// 	}
-		// 	else if (P_id == 0)
-		// 			execve(ag[i], &ag[i], NULL);
-		// 	else
-		// 		wait(NULL);
 			i++;
 		}
 		free(command);
