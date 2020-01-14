@@ -12,40 +12,39 @@
 
 #include "minishell.h"
 
+void	print_strcut(t_cmd *list)
+{
 
-// void space_split(char *ag,t_cmd *list)
-// {
-// 	// char **sp = ft_split(ag,' ');
-// 	printf("before = $%s$\n", list->ag[0]);
-// 	list->ag = ft_split(ag,' ');
-// 	printf("after = $%s$\n", list->ag[0]);
-// 	int i = 0;
-// 	while (list->ag[i])
-// 	{
-// 		if (!strcmp(list->ag[i], ">") || !strcmp(list->ag[i], ">>") || !strcmp(list->ag[i], "<"))
-// 		{
-// 			if (!strcmp(list->ag[i], ">"))
-// 			{
-// 				list->red_create_output = 1;
-// 				strcpy(list->file_output, list->ag[i+ 1]);
-// 			}
-// 			else if (!strcmp(list->ag[i], ">>"))
-// 			{
-// 				list->red_append_output = 1;
-// 				strcpy(list->file_output, list->ag[i+ 1]);
-// 			}
-// 			else if (!strcmp(list->ag[i], "<"))
-// 			{
-// 				list->red_input = 1;
-// 				strcpy(list->file_input, list->ag[i+ 1]);
-// 			}
-// 			free(list->ag[i]);
-// 			list->ag[i] = NULL;
-// 		}
-// 		i++;
-// 	}
-// 	// list->ag = sp;
-// }
+}
+void space_split(char *ag,t_cmd *list)
+{
+	list->argument = ft_split(ag,' ');
+	int i = 0;
+	while (list->argument[i])
+	{
+		if (!strcmp(list->argument[i], ">") || !strcmp(list->argument[i], ">>") || !strcmp(list->argument[i], "<"))
+		{
+			if (!strcmp(list->argument[i], ">"))
+			{
+				list->red_create_output = 1;
+				strcpy(list->file_output, list->argument[i+ 1]);
+			}
+			else if (!strcmp(list->argument[i], ">>"))
+			{
+				list->red_append_output = 1;
+				strcpy(list->file_output, list->argument[i+ 1]);
+			}
+			else if (!strcmp(list->argument[i], "<"))
+			{
+				list->red_input = 1;
+				strcpy(list->file_input, list->argument[i+ 1]);
+			}
+			free(list->argument[i]);
+			list->argument[i] = NULL;
+		}
+		i++;
+	}
+}
 
 void 	pipe_split(char *ag,t_cmd *list)
 {
@@ -55,8 +54,7 @@ void 	pipe_split(char *ag,t_cmd *list)
 	int i = 0;
 	while (sp[i])
 	{
-		//space_split(sp[i], list);
-		printf("%s\n",sp[i]);
+		space_split(sp[i], list);
 		i++;
 	}
 }
@@ -66,7 +64,8 @@ int		main(void)
 	char	*tmp;
 	int		i;
 	int		P_id;
-	t_cmd	*list[256] = {0};
+	t_cmd	*list[256];
+	// list = (t_cmd**)malloc(sizeof(t_cmd*) * );
 
 	while (1)
 	{
@@ -81,9 +80,9 @@ int		main(void)
 		i = 0;
 		while (ag[i] != NULL)
 		{
-			list[i]->ag[0] = strdup("wale");
+			list[i] = (t_cmd*)malloc(sizeof(t_cmd));
 			pipe_split(ag[i], list[i]);
-			printf("command = $%s$\n", ag[i]);
+			// printf("command = $%s$\n", ag[i]);
 			i++;
 		}
 		free(command);

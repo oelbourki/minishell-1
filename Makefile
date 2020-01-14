@@ -58,15 +58,15 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME):
-	# @make -f $(LIBMAKEFILE)
+	@# @make -f $(LIBMAKEFILE)
 	@$(CC) $(FLAGS) echo.c $(LIB) -o echo
 	@$(CC) $(FLAGS) pwd.c $(LIB) -o pwd
 	@$(CC) $(FLAGS) cd.c $(LIB) -o cd
 	@$(CC) $(FLAGS) $(MSRC) libft.a gnl.a -o $(NAME)
 
 clean:
-	# @rm -rf $(LIBOBJ)
-	# @make fclean -f $(LIBMAKEFILE)
+	@# @rm -rf $(LIBOBJ)
+	@# @make fclean -f $(LIBMAKEFILE)
 
 fclean: clean
 	@rm -rf $(NAME)

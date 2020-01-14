@@ -25,7 +25,7 @@
 
 typedef struct  s_cmd
 {
-    char            **ag;
+    char            **argument;
     int             red_create_output;
     int             red_append_output;
     int             red_input;
