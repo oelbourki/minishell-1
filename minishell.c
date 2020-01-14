@@ -14,7 +14,17 @@
 
 void	print_strcut(t_cmd *list)
 {
-
+	int i = 0;
+	while (list->argument[i])
+	{
+		printf("arg[%d]%s\n",i,list->argument[i]);
+		i++;
+	}
+	printf("red_create_output[%d]\n",list->red_create_output);
+	printf("red_append_output[%d]\n",list->red_append_output);
+	printf("red_input[%d]\n",list->red_input);
+	printf("file_input>>[%s]\n",list->file_input);
+	printf("file_input>>[%s]\n",list->file_output);
 }
 void space_split(char *ag,t_cmd *list)
 {
@@ -44,6 +54,7 @@ void space_split(char *ag,t_cmd *list)
 		}
 		i++;
 	}
+	print_strcut(list);
 }
 
 void 	pipe_split(char *ag,t_cmd *list)
