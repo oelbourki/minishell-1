@@ -5,13 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/11 08:20:54 by ibaali            #+#    #+#              #
-#    Updated: 2020/01/14 09:14:07 by ibaali           ###   ########.fr        #
+#    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
+#    Updated: 2020/01/21 15:33:41 by ibaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MSRC =  minishell.c							\
-		helped.c
+SRC= parce.h
 
 LIBOBJ = 	ft_atoi.o				\
 			ft_bzero.o				\
@@ -51,22 +50,19 @@ LIBOBJ = 	ft_atoi.o				\
 LIB = libft.a
 LIBMAKEFILE = libft/Makefile
 CC = gcc
-# FLAGS = -Wextra -Wall -Werror -fsanitize=address
 FLAGS = -fsanitize=address -g
 NAME = minishell
 
 all: $(NAME)
 
 $(NAME):
-	@# @make -f $(LIBMAKEFILE)
-	@$(CC) $(FLAGS) echo.c $(LIB) -o echo
-	@$(CC) $(FLAGS) pwd.c $(LIB) -o pwd
-	@$(CC) $(FLAGS) cd.c $(LIB) -o cd
-	@$(CC) $(FLAGS) $(MSRC) libft.a gnl.a -o $(NAME)
+	@make -f $(LIBMAKEFILE)
+	@$(CC) $(FLAGS)
 
 clean:
-	@# @rm -rf $(LIBOBJ)
-	@# @make fclean -f $(LIBMAKEFILE)
+	@rm -rf $(LIBOBJ)
+	@make fclean -f $(LIBMAKEFILE)
+	@rm -rf $(NAME)
 
 fclean: clean
 	@rm -rf $(NAME)

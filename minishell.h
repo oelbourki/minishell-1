@@ -5,37 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 22:25:29 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/13 21:40:57 by ibaali           ###   ########.fr       */
+/*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
+/*   Updated: 2020/01/22 15:43:59 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <errno.h>
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
-#define MAX_PATH 1024
-#define EXIST 1
-#define NOT_EXIST 0
+#ifndef MINISHELL
+# define MINISHELL
+# define REDIN 0
+# define REDOUT 1
+# define DOUBLEREDOUT 2
+# define SEMICOL 3
+# define COMMAND 4
+# define STRING 5
+# define PIPE 6
+# include "libft.h"
+# include "get_next_line.h"
+# include <stdio.h>
 
-typedef struct  s_cmd
+typedef	struct	s_command
 {
-    char            **argument;
-    int             red_create_output;
-    int             red_append_output;
-    int             red_input;
-    char            *file_input;
-    char            *file_output;
-    struct  s_cmd   *next;
-}               t_cmd;
+	char	*str;
+	int		what;
+	struct	s_command	*next;
+}				t_command;
 
+typedef	struct	s_env
+{
+	char	*variable;
+	char	*value;
+	struct	s_env	*next;
+}				t_env;
 
-int		skip_white_space(char *str, int i);
-int		is_this_command(char *line, char *command);
+t_command	*ft_lstnew_command(char *str, int what);
+void		ft_lstadd_back_command(t_command **alst, t_command *new);
+t_env  		*copyEnvp(char **envp);
+t_command	*parse(char *line, t_command *cmd);
+t_command	*double_simple_qoute(t_command *cmd, t_env *environt);
+
+void		print_list(t_env *ls);
+void	print_command(t_command *command);
 
 #endif
