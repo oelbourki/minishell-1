@@ -6,16 +6,31 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/22 15:47:19 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/23 21:19:22 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+int		g_to_skip;
+
+t_command	*add_back_slach(int *start, int *i, t_command *cmd)
+{
+	t_command	*node;
+
+	node = ft_lstnew_command("\\", STRING);
+	ft_lstadd_back_command(&cmd, node);
+	return (cmd);
+}
 
 t_command	*putSpacecmd(int *start, int *fin, int *is_cmd, char *tmp, t_command *cmd)
 {
 	t_command	*node;
 
+	if (tmp[*start] == '\\')
+	{
+		*start = *fin;
+		return (cmd);
+	}
 	while (tmp[*start] == ' ' || tmp[*start] == '\t')
 		(*start) += 1;
 	if (ft_strchr("|;<>", tmp[*start]) == NULL)
@@ -43,14 +58,25 @@ t_command	*pipe_rin_semicol(int *start, int *i, int *is_cmd, char *tmp, t_comman
 	cmd = putSpacecmd(start, i, is_cmd, tmp, cmd);
 	*is_cmd = 0;
 	if (tmp[*i] == '|')
-		node = ft_lstnew_command(t, PIPE);
+		if (g_to_skip == 0)
+			node = ft_lstnew_command(t, PIPE);
+		else
+			node = ft_lstnew_command(t, STRING);
 	else if (tmp[*i] == '<')
 	{
-		node = ft_lstnew_command(t, REDIN);
+		if (g_to_skip == 0)
+			node = ft_lstnew_command(t, REDIN);
+		else
+			node = ft_lstnew_command(t, STRING);
 		*is_cmd = 1;
 	}
 	else
-		node = ft_lstnew_command(t, SEMICOL);
+	{
+		if (g_to_skip == 0)
+			node = ft_lstnew_command(t, SEMICOL);
+		else
+			node = ft_lstnew_command(t, STRING);
+	}
 	ft_lstadd_back_command(&cmd, node);
 	*start = *i + 1;
 	return (cmd);
@@ -71,10 +97,18 @@ t_command	*rediriction_out(int *start, int *i, int *is_cmd, char *tmp, t_command
 		t[2] = '\0';
 		*i += 1;
 		*start = *i + 1;
-		node = ft_lstnew_command(t, DOUBLEREDOUT);
+		if (g_to_skip == 0)
+			node = ft_lstnew_command(t, DOUBLEREDOUT);
+		else
+			node = ft_lstnew_command(t, REDOUT);
 	}
 	else
-		node = ft_lstnew_command(t, REDOUT);
+	{
+		if (g_to_skip == 0)
+			node = ft_lstnew_command(t, REDOUT);
+		else
+			node = ft_lstnew_command(t, STRING);
+	}
 	ft_lstadd_back_command(&cmd, node);
 	return (cmd);
 }
@@ -94,6 +128,10 @@ t_command	*parse(char *line, t_command *cmd)
 	tmp = ft_strtrim(line, " \t");
 	while (tmp[i] != '\0')
 	{
+		if (tmp[i] == '\\')
+			g_to_skip = (g_to_skip == 0) ? 1 : 0;
+		if (tmp[i] == '\\' && g_to_skip == 0)
+			cmd = add_back_slach(&start, &i, cmd);
 		if (tmp[i] == ' ')
 			cmd = putSpacecmd(&start, &i, &is_cmd, tmp, cmd);
 		if (tmp[i] == '\'' || tmp[i] == '\"')
@@ -114,7 +152,7 @@ void	print_command(t_command *command)
 {
 	while (command != NULL)
 	{
-		printf("\nnode = $%s$ index = ", command->str);
+		printf("\nnode = [%s] index = ", command->str);
 		if (command->what == DOUBLEREDOUT)
 			printf("DOUBLEREDOUT");
 		else if (command->what == REDIN)

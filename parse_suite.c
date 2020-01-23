@@ -6,21 +6,11 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/22 16:23:58 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/23 22:14:14 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char		*remove_simple_qoute(char *str)
-{
-	char	*tmp;
-
-	tmp = str;
-	str = ft_strtrim(str, "'");
-	free(tmp);
-	return (str);
-}
 
 void	search_for_env_var(char *new, int *j, t_env *environt, char *var)
 {
@@ -39,77 +29,149 @@ void	search_for_env_var(char *new, int *j, t_env *environt, char *var)
 	}
 }
 
-char	*remove_double_qoute(char *str, t_env *environt)
+int			where_is_char(char *str, char c)
 {
-	char	*new_str = malloc(4096);
-	char	var[256];
-	int		k;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	i += 1;
-	while (str[i] != '\"')
+	while (str[i] != '\0')
 	{
-		if (str[i] == '$')
-		{
-			while (ft_isalnum(str[i + 1]) == 1 || str[i + 1] == '_')
-				var[k++] = str[++i];
-			var[k] = 0;
-			search_for_env_var(new_str, &j, environt, var);
-		}
-		else
-			new_str[j++] = str[i];
+		if (str[i] == c)
+			return (i);
 		i++;
 	}
-	new_str[j] = '\0';
-	return (new_str);
+	return (0);
 }
 
-char		*put_value_of_dollar(char *str, t_env *environt)
+char	*ft_strcat(char *dest, char *src, int *j)
+{
+	int		i;
+	int		k;
+	char	*new = malloc(4096);
+
+	i = 0;
+	k = 0;
+	while (k < *j)
+	{
+		new[k] = dest[k];
+		k++;
+	}
+	while (src[i] != '\0')
+		new[(*j)++] = src[i++];
+	return (new);
+}
+
+char	*put_value_of_dollar(char *str, t_env *environt, int *i)
 {
 	char	var[256];
 	char	*new_str = malloc(4096);
-	int		i;
+	int		k;
 	int		j;
+	int		p;
 
-	i = 1;
+	p = 0;
 	j = 0;
 	new_str[0] = '\0';
-	while (ft_isalnum(str[i]) == 1 || str[i] == '_')
-		var[j++] = str[i++];
-	var[j] = '\0';
-	j = 0;
-	i = 0;
+	*i += 1;
+	while (ft_isalnum(str[*i]) == 1 || str[*i] == '_')
+		var[p++] = str[(*i)++];
+	var[p] = '\0';
 	while (environt != NULL)
 	{
 		if (ft_strncmp(var, environt->variable, ft_strlen(var)) == 0)
 		{
-			while (environt->value[i] != '\0')
-				new_str[j++] = environt->value[i++];
-			new_str[j] = '\0';
-			return (new_str);
+			k = 0;
+			while (environt->value[k] != '\0')
+				new_str[j++] = environt->value[k++];
+			break ;
 		}
 		environt = environt->next;
 	}
+	*i -= 1;
+	new_str[j] = '\0';
+	// printf("new str = |%s|\n", new_str);
 	return (new_str);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int		count;
+
+	count = 0;
+	while (src[count] != '\0')
+	{
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = '\0';
+	return (dest);
 }
 
 t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 {
 	t_command	*tmp;
+	int			i;
+	int			j;
+	int			flag;
+	char		*new;
 
 	tmp = cmd;
+	flag = 0;
+	if ((new = malloc(4096)) == NULL)
+		return (NULL);
 	while (tmp != NULL)
 	{
-		if (tmp->str[0] == '\'' && tmp->what == STRING)
-			tmp->str = remove_simple_qoute(tmp->str);
-		else if (tmp->str[0] == '\"' && tmp->what == STRING)
-			tmp->str = remove_double_qoute(tmp->str, environt);
-		else if (tmp->str[0] == '$' && tmp->what == STRING)
-			tmp->str = put_value_of_dollar(tmp->str, environt);
+		i = 0;
+		j = 0;
+		while (tmp->str[i] != '\0')
+		{
+			if (tmp->str[i] == '\\' && tmp->str[i + 1] != '\0')
+				new[j++] = tmp->str[++i];
+			else if (tmp->str[i] == '\'')
+			{
+				i += 1;
+				while (tmp->str[i] != '\''  && tmp->str[i] != '\0')
+					new[j++] = tmp->str[i++];
+				if (tmp->str[i] == '\0')
+				{
+					write(1, "Multi line detected..!!!", 24);
+					return (NULL);
+				}
+			}
+			else if (tmp->str[i] == '"')
+			{
+				i += 1;
+				while (tmp->str[i] != '"' && tmp->str[i] != '\0')
+				{
+					if (tmp->str[i] == '\\' && ft_strchr("\\\"$", tmp->str[i + 1]))
+						new[j++] = tmp->str[++i];
+					else if (tmp->str[i] == '$')
+						new = ft_strcat(new, put_value_of_dollar(tmp->str, environt, &i), &j);
+					else
+						new[j++] = tmp->str[i];
+					i += 1;
+				}
+				if (tmp->str[i] == '\0')
+				{
+					write(1, "Multi line detected..!!!", 24);
+					return (NULL);
+				}
+			}
+			else if (tmp->str[i] == '$')
+			{
+				new[j] = '\0';
+				printf("newgogo = |%s|\n", new);
+				new = ft_strcat(new, put_value_of_dollar(tmp->str, environt, &i), &j);
+			}
+			else
+				new[j++] = tmp->str[i];
+			i++;
+		}
+		new[j] = '\0';
+		char *a_free;
+		a_free = tmp->str;
+		tmp->str = ft_strdup(new);
+		free(a_free);
 		tmp = tmp->next;
 	}
 	return (cmd);

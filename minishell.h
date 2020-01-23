@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/22 15:43:59 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/22 22:06:55 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define COMMAND 4
 # define STRING 5
 # define PIPE 6
+# define DOLLAR 7
+# define SIMDOUTE 8
+# define DBLDOUTE 9
 # include "libft.h"
 # include "get_next_line.h"
 # include <stdio.h>
