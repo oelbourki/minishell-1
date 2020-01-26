@@ -28,7 +28,7 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (tmp[0] == 0)
-			ft_putstr_fd("root@e120e15p3# ", 1);
+			ft_putstr_fd("root@e120e15p3 # ", 1);
 		ret = get_next_line(0, &line);
 		if (ret == 0)
 		{
