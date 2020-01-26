@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:52:00 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/26 13:41:03 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:17:10 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,10 +241,7 @@ int  is_cmd(char * sem)
 	while (i < 6)
 	{
 		if (!strcmp(sem, commands[i]))
-        {
-            printf("is Here..!\n");
 			return 1;
-        }
 		i++;
 	}
 	return 0;    
