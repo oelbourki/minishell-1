@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/21 19:57:05 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/21 20:02:35 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_env  *copyEnvp(char **envp)
 	return (lst);
 }
 
+/* you must remove that after finich */
 void	print_list(t_env *ls)
 {
 	while (ls != NULL)

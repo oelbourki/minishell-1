@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/21 19:55:24 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:09:46 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # define COMMAND 4
 # define STRING 5
 # define PIPE 6
-# define OPTION 7
+# define DOLLAR 7
+# define SIMDOUTE 8
+# define DBLDOUTE 9
 # include "libft.h"
 # include "get_next_line.h"
 # include <stdio.h>
@@ -38,8 +40,13 @@ typedef	struct	s_env
 	struct	s_env	*next;
 }				t_env;
 
-
-t_env  *copyEnvp(char **envp);
-void	print_list(t_env *ls);
+t_command	*ft_lstnew_command(char *str, int what);
+void		ft_lstadd_back_command(t_command **alst, t_command *new);
+t_env  		*copyEnvp(char **envp);
+t_command	*parse(char *line, t_command *cmd);
+t_command	*double_simple_qoute(t_command *cmd, t_env *environt);
+void		print_list(t_env *ls);
+void	print_command(t_command *command);
+void	ft_lstclear_command(t_command **alst);
 
 #endif

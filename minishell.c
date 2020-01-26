@@ -16,12 +16,39 @@ int		main(int argc, char **argv, char **envp)
 {
 	t_env		*environt;
 	t_command	*command;
-	char			*line;
+	char		*tmp;
+	char		*line;
+	int			ret;
 
+	(void)argc;
+	(void)argv;
 	environt = NULL;
 	command = NULL;
 	environt = copyEnvp(envp);
-	print_list(environt);
-	// get_next_line(0, &line);
-	// cmd = parse(line, cmd);
+	tmp = ft_strdup("");
+	while (1)
+	{
+		if (tmp[0] == 0)
+			ft_putstr_fd("root@e120e15p3# ", 1);
+		ret = get_next_line(0, &line);
+		if (ret == 0)
+		{
+			if (line[0] != '\0' || tmp[0] != '\0')
+			{
+				tmp = ft_strjoin(tmp, line);
+				free(line);
+				continue ;
+			}
+			else
+				exit(-1);
+		}
+		line = ft_strjoin(tmp, line);
+		free(tmp);
+		tmp = ft_strdup("");
+		command = parse(line, command);
+		command = double_simple_qoute(command, environt);
+		print_command(command);
+		ft_lstclear_command(&command);
+		free(line);
+	}
 }
