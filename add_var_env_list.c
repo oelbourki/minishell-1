@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/21 20:02:35 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/26 13:33:06 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ t_env  *copyEnvp(char **envp)
 }
 
 /* you must remove that after finich */
-void	print_list(t_env *ls)
+int	env(t_env *ls)
 {
 	while (ls != NULL)
 	{
 		printf("%s=%s\n", ls->variable, ls->value);
 		ls = ls->next;
 	}
+	return (1);
 }

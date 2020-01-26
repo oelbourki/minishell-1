@@ -14,7 +14,6 @@
 
 int		main(int argc, char **argv, char **envp)
 {
-	t_env		*environt;
 	t_command	*command;
 	char		*tmp;
 	char		*line;
@@ -47,7 +46,8 @@ int		main(int argc, char **argv, char **envp)
 		tmp = ft_strdup("");
 		command = parse(line, command);
 		command = double_simple_qoute(command, environt);
-		print_command(command);
+		// print_command(command);
+		the_main(command);
 		ft_lstclear_command(&command);
 		free(line);
 	}
