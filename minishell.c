@@ -14,7 +14,10 @@
 
 int		main(int argc, char **argv, char **envp)
 {
+<<<<<<< HEAD
 	t_env		*environt;
+=======
+>>>>>>> kirwa
 	t_command	*command;
 	char		*tmp;
 	char		*line;
@@ -47,7 +50,12 @@ int		main(int argc, char **argv, char **envp)
 		tmp = ft_strdup("");
 		command = parse(line, command);
 		command = double_simple_qoute(command, environt);
+<<<<<<< HEAD
 		print_command(command);
+=======
+		// print_command(command);
+		the_main(command);
+>>>>>>> kirwa
 		ft_lstclear_command(&command);
 		free(line);
 	}
