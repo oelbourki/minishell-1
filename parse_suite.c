@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/24 11:25:04 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/27 18:12:12 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 			else if (tmp->str[i] == '$')
 			{
 				new[j] = '\0';
-				// printf("newgogo = |%s|\n", new);
 				new = ft_strcat(new, put_value_of_dollar(tmp->str, environt, &i), &j);
 			}
 			else

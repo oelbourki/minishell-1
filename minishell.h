@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/26 14:47:19 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/27 16:39:13 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,17 @@
 # define DOLLAR 7
 # define SIMDOUTE 8
 # define DBLDOUTE 9
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include "get_next_line.h"
-#include "libft.h"
-#include <fcntl.h>
-#include <sys/stat.h>
-
-/* * * * * * */
-const static char *commands[] = {
-    "echo",
-    "cd",
-    "pwd",
-    "export",
-    "unset",
-    "env",
-    "exit",
-};
-
-int  is_cmd(char * sem);
-int   ft_exx(char **arg,int first,int last,int input);
-int cd(char *s);
-int     pwd();
-int   export(char **arg);
-/* * * * */
-
-
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include "get_next_line.h"
+# include "libft.h"
+# include <fcntl.h>
+# include <sys/stat.h>
 
 typedef	struct	s_command
 {
@@ -68,9 +48,24 @@ typedef	struct	s_env
 	struct	s_env	*next;
 }				t_env;
 
+const static char *commands[] = {
+    "echo",
+    "cd",
+    "pwd",
+    "export",
+    "unset",
+    "env",
+    "exit",
+};
+
 t_env		*environt;
 
-int	env_declarex(t_env *ls);
+int         is_cmd(char * sem);
+int         ft_exx(char **arg,int first,int last,int input);
+int         cd(char *s);
+int         pwd();
+int          export(char **arg);
+int	        env_declarex(t_env *ls);
 t_command	*ft_lstnew_command(char *str, int what);
 void		ft_lstadd_back_command(t_command **alst, t_command *new);
 t_env  		*copyEnvp(char **envp);
