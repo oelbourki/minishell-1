@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 17:53:33 by oel-bour          #+#    #+#             */
-/*   Updated: 2019/10/28 17:53:35 by oel-bour         ###   ########.fr       */
+/*   Created: 2019/10/15 13:40:09 by ibaali            #+#    #+#             */
+/*   Updated: 2020/01/21 21:05:48 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
-# define BUFFER_SIZE 512
-
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strchr(const char *s, int c);
-char			*ft_strdup(const char *s1);
-size_t			ft_strlen(const char *s);
+# define BUFFER_SIZE 4096
+int		get_next_line(int fd, char **line);
+char	*get_copy(char **stock, char **line, int fd);
+char	*get_go(char *buffer, char **line, int ret);
+int		fr_ptr(char *buffer, int ret);
 
 #endif
