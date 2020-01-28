@@ -6,41 +6,21 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/28 08:48:07 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/28 18:42:21 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int		g_to_skip;
-
-t_command	*add_back_slach(int *start, int *i, t_command *cmd, char *tmp)
-{
-	t_command	*node;
-	// char		t[256];
-	// int			j;
-
-	// t[0] = '\\';
-	// j = 0;
-	// // while (tmp[*i] )
-	// printf("before = #%c# now = #%c# after = #%c#\n", tmp[*i - 1], tmp[*i], tmp[*i + 1]);
-	node = ft_lstnew_command("\\", STRING);
-	// node = ft_lstnew_command(t[256], STRING);
-	ft_lstadd_back_command(&cmd, node);
-	return (cmd);
-}
 
 t_command	*putSpacecmd(int *start, int *fin, int *is_cmd, char *tmp, t_command *cmd)
 {
 	t_command	*node;
 	char		*a_free;
+	char		*trim;
 
-	a_free = ft_substr(tmp, *start, *fin - *start);
-	if (ft_strchr(a_free, '\\'))
-	{
-		*start = (*fin);
-		free(a_free);
-		return (cmd);
-	}
+	trim = ft_substr(tmp, *start, *fin - *start);
+	a_free = ft_strtrim(trim, " \t");
+	free(trim);
 	while (tmp[*start] == ' ' || tmp[*start] == '\t')
 		(*start) += 1;
 	if (ft_strchr("|;<>", tmp[*start]) == NULL && *start < *fin)
@@ -56,6 +36,7 @@ t_command	*putSpacecmd(int *start, int *fin, int *is_cmd, char *tmp, t_command *
 	*start = *fin;
 	while (tmp[*fin] == ' ' || tmp[*fin] == '\t')
 		(*fin) += 1;
+	free(a_free);
 	return (cmd);
 }
 
@@ -155,10 +136,9 @@ t_command	*parse(char *line, t_command *cmd)
 			cmd = rediriction_out(&start, &i, &is_cmd, tmp, cmd);
 		if (tmp[i] == '\\')
 		{
-			if (g_to_skip == 1)
-				cmd = add_back_slach(&start, &i, cmd, tmp);
+			// if (g_to_skip == 1)
+			// 	cmd = add_back_slach(&start, &i, cmd, tmp);
 			g_to_skip = (g_to_skip == 0) ? 1 : 0;
-			// i++;
 		}
 		i++;
 	}

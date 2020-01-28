@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/27 16:39:13 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/28 18:38:31 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ const static char *commands[] = {
     "exit",
 };
 
-t_env		*environt;
+t_env	*environt;
+int		g_to_skip;
 
 int         is_cmd(char * sem);
 int         ft_exx(char **arg,int first,int last,int input);
@@ -77,5 +78,5 @@ void	    ft_lstclear_command(t_command **alst);
 int         the_main(t_command *head);
 t_command   **get_semi(t_command *head,int *N);
 t_command   **get_pipe(t_command *head,int *n);
-
+void	ft_lstclear_env(t_env **alst);
 #endif
