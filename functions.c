@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:52:00 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/26 13:41:03 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:45:16 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,7 @@ void    push_back(t_env **head,t_env *data)
     }
     
     while (counter->next)
-    {
         counter = counter->next;
-    }
     counter->next = data;
 }
 void    print(t_command *head)
@@ -159,9 +157,21 @@ void    print(t_command *head)
     
 // }
 
-void    export(t_env *head,t_env *data)
+int    export(char **arg)
 {
-    push_back(&head,data);
+    if (arg[1] == NULL)
+        env_declarex(environt);
+    else
+    {
+        t_env *data= (t_env *)malloc(sizeof(t_env));
+        char **s = ft_split(arg[1], '=');
+        data->variable = strdup(s[0]);
+        data->value = strdup(s[1]);
+        data->next = NULL;
+        push_back(&environt, data);
+        return 1;
+    }
+    return 0;
 }
 
 t_command **get_semi(t_command *head, int *n)
@@ -241,10 +251,7 @@ int  is_cmd(char * sem)
 	while (i < 6)
 	{
 		if (!strcmp(sem, commands[i]))
-        {
-            printf("is Here..!\n");
 			return 1;
-        }
 		i++;
 	}
 	return 0;    

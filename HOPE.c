@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/26 13:45:27 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:58:55 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int   ft_exx(char **arg,int first,int last,int input)
 	pipe(fd);
 	if (arg[0] == NULL)
 		return -1;
-	if (is_cmd(arg[0]) && p == 0 && redout == 0)
+	if (is_cmd(arg[0]) && p == 0 && redout == 0 && redin == 0 && red_in == 0)
 	{
 		if (!strcmp(arg[0], "echo"))
 			return echo(arg);
@@ -177,8 +177,8 @@ int   ft_exx(char **arg,int first,int last,int input)
 			return env(environt);
 		if (!strcmp(arg[0], "exit"))
 			exit(0);
-		// if (!strcmp(arg[0],"export"))
-		// 	return (export(environ))
+		if (!strcmp(arg[0],"export"))
+			return (export(arg));
 	}
 	if ((pid = fork()) == -1)
 	{

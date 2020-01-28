@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/26 13:33:06 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:46:29 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ int	env(t_env *ls)
 	while (ls != NULL)
 	{
 		printf("%s=%s\n", ls->variable, ls->value);
+		ls = ls->next;
+	}
+	return (1);
+}
+
+
+int	env_declarex(t_env *ls)
+{
+	while (ls != NULL)
+	{
+		printf("declare -x %s=%s\n", ls->variable, ls->value);
 		ls = ls->next;
 	}
 	return (1);

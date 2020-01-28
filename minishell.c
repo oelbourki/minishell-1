@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	control(int sig)
+{
+	ft_putstr_fd("\nroot@e120e15p3 # ", 1);
+}
+
 int		main(int argc, char **argv, char **envp)
 {
 	t_command	*command;
@@ -25,10 +30,11 @@ int		main(int argc, char **argv, char **envp)
 	command = NULL;
 	environt = copyEnvp(envp);
 	tmp = ft_strdup("");
+	signal(SIGINT, control);
 	while (1)
 	{
 		if (tmp[0] == 0)
-			ft_putstr_fd("root@e120e15p3# ", 1);
+			ft_putstr_fd("root@e120e15p3 # ", 1);
 		ret = get_next_line(0, &line);
 		if (ret == 0)
 		{
@@ -39,15 +45,18 @@ int		main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			else
-				exit(-1);
+			{
+				ft_putstr_fd("exit\n", 1);
+				exit(0);
+			}
 		}
 		line = ft_strjoin(tmp, line);
 		free(tmp);
 		tmp = ft_strdup("");
 		command = parse(line, command);
 		command = double_simple_qoute(command, environt);
-		// print_command(command);
-		the_main(command);
+		print_command(command);
+		// the_main(command);
 		ft_lstclear_command(&command);
 		free(line);
 	}
