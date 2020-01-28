@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:52:00 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/28 08:58:02 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:21:11 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,4 +374,26 @@ void	ft_lstadd_back_var(t_env **alst, t_env *new)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+}
+
+
+void    ft_free_void(void **arg)
+{
+    if (arg && *arg)
+        free(*arg);
+    *arg = NULL;
+}
+
+void    ft_free_void_star(void **arg)
+{
+    int i;
+
+    if (arg == NULL)
+        return ;
+    i = 0;
+    while (arg[i])
+    {
+        ft_free_void(&arg[i]);
+        i++;
+    }
 }

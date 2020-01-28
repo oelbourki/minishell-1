@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/28 08:56:42 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:20:05 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void    ft_free_star(char **arg);
 int		unset(char **arg);
 char		*var(char *s);
 void	signal_x(int f);
+void    ft_free_void_star(void **arg);
+void    ft_free_void(void **arg);
 
 
 /* * * * */

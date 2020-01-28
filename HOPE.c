@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/28 08:56:19 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:43:02 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ char *file_output;
 int redin;
 int redout;
 int red_in;
+int multi_redout;
 int pid;
 int status;
 int p;
+char **argx;
+int multi_redin;
 char *path(char *f);
 int cd1(char *s);
 	int output_fd;
@@ -68,7 +71,7 @@ int	helpredin(t_command *counter)
 {
 	if (counter->next->next->next == NULL)
 	{
-		printf("bash: syntax error near unexpected token \\`newline\'\n");
+		puts("bash: syntax error near unexpected token `newline\'");
 		return (1);
 	}
 	else if (counter->next->next->next->what == REDIN
@@ -85,7 +88,7 @@ int		doubleredin(t_command *counter)
 	{
 		if (counter->next == NULL)
 		{
-			printf("bash: syntax error near unexpected token `newline\'\n");
+			puts("bash: syntax error near unexpected token `newline\'");
 			return (1);
 		}
 		file_input = strdup(counter->next->str);
@@ -112,6 +115,71 @@ int		doubleredin(t_command *counter)
 	return (0);
 }
 
+
+
+int do_somein(t_command **head)
+{
+	t_command *counter = *head;
+	puts("<<>>>");
+	while (counter != NULL && counter->what == REDIN)
+	{
+		puts("<<>00000>>");
+		if (counter->next->what != REDIN && counter->next->str != NULL)
+		{
+			puts("<----------0>>");
+			input_fd = open(file_input, O_RDONLY, 0);
+			counter->next->what = STRING;
+		}
+		else if (counter->next->what == REDIN)
+			puts("bash: syntax error near unexpected token `>'");
+		else 
+			return -1;
+		counter = counter->next->next;
+	}
+	if (counter != NULL && counter->what == STRING)
+	{
+		puts("<<>>>");
+		argx = (char**)malloc(sizeof(char*) * 2);
+		char *tmp = path(counter->str);
+		argx[0] = strdup(tmp);
+		argx[1] = NULL;
+		multi_redin = 1;
+		return 1;
+	}
+	else
+		return 0;
+	return 1;
+}
+
+int do_someout(t_command **head)
+{
+	t_command *counter = *head;
+	while (counter != NULL && counter->what == REDOUT)
+	{
+		if (counter->next->what != REDOUT && counter->next->str != NULL)
+		{
+			output_fd = open(counter->next->str , O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			counter->next->what = STRING;
+		}
+		else if (counter->next->what == REDOUT)
+			puts("bash: syntax error near unexpected token `>'");
+		else 
+			return -1;
+		counter = counter->next->next;
+	}
+	if (counter != NULL && counter->what == STRING)
+	{
+		argx = (char**)malloc(sizeof(char*) * 2);
+		char *tmp = path(counter->str);
+		argx[0] = strdup(tmp);
+		argx[1] = NULL;
+		multi_redout = 1;
+		return 1;
+	}
+	else
+		return 0;
+	return 1;
+}
 char **convert(t_command *head)
 {
 	redin = 0;
@@ -119,6 +187,20 @@ char **convert(t_command *head)
 	t_command *counter;
 	char *tmp;
 	counter = head;
+	if (counter->what == REDOUT)
+	{
+	if (!do_someout(&counter))
+		return NULL;
+	else 
+		return argx;
+	}
+	if (counter->what == REDIN)
+	{
+	if (!do_somein(&counter))
+		return NULL;
+	else 
+		return argx;
+	}
 	int i = 0;
 	while (counter)
 	{
@@ -140,7 +222,6 @@ char **convert(t_command *head)
 				node->value = strdup(arg[1]);
 				node->next = NULL;
 				push_back_ex(&variables, node,arg);
-				// ft_lstadd_back_envp(&variables, node);
 				ft_free_star(arg);
 				return (NULL);
 			}
@@ -196,6 +277,16 @@ void	dupx(int first, int last, int input, int fd[2])
 	}
 	else
 		dup2(input,0);
+	if (multi_redout == 1)
+	{
+		dup2(output_fd, 1);
+		multi_redout = 0;
+	}
+	if (multi_redin == 1)
+	{
+		dup2(input_fd , 0);
+		multi_redin = 0;
+	}
 	if (redout == 1)
 	{
 		output_fd = open(file_output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
