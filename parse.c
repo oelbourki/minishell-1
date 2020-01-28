@@ -6,18 +6,33 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/27 20:48:11 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/28 08:59:51 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 int		g_to_skip;
 
-t_command	*add_back_slach(int *start, int *i, t_command *cmd)
+t_command	*add_back_slach(int *start, int *i, t_command *cmd, char *tmp)
 {
 	t_command	*node;
+	char		t[256];
+	int			j;
 
-	node = ft_lstnew_command("\\", STRING);
+	j = 0;
+	t[j++] = '\\';
+	while (tmp[*i + 1] != '\0')
+	{
+		if (tmp[*i + 1] == '\\' && tmp[*i + 2] == '\\')
+		{
+			t[j++] = '\\';
+			*i += 2;
+		}
+		else
+			break ;
+	}
+	t[j] = '\0';
+	node = ft_lstnew_command(t, STRING);
 	ft_lstadd_back_command(&cmd, node);
 	return (cmd);
 }
@@ -149,7 +164,7 @@ t_command	*parse(char *line, t_command *cmd)
 		if (tmp[i] == '\\')
 		{
 			if (g_to_skip == 1)
-				cmd = add_back_slach(&start, &i, cmd);
+				cmd = add_back_slach(&start, &i, cmd, tmp);
 			g_to_skip = (g_to_skip == 0) ? 1 : 0;
 			// i++;
 		}
