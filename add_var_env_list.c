@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var_env_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/26 14:46:29 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/27 18:18:18 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_env  *copyEnvp(char **envp)
 {
 	int         i;
 	t_env  	*node;
-	t_env  	*lst;
+	t_env  	*lst = NULL;
 	char		**splited;
 
 	i = 0;
@@ -54,21 +54,28 @@ t_env  *copyEnvp(char **envp)
 /* you must remove that after finich */
 int	env(t_env *ls)
 {
-	while (ls != NULL)
+	t_env *tmp;
+
+	if (ls == NULL)
+		return 0;
+	tmp = ls;
+	while (tmp != NULL)
 	{
-		printf("%s=%s\n", ls->variable, ls->value);
-		ls = ls->next;
+		printf("%s=%s\n", tmp->variable, tmp->value);
+		tmp = tmp->next;
 	}
 	return (1);
 }
 
-
 int	env_declarex(t_env *ls)
 {
-	while (ls != NULL)
+	t_env *tmp;
+
+	tmp = ls;
+	while (tmp != NULL)
 	{
 		printf("declare -x %s=%s\n", ls->variable, ls->value);
-		ls = ls->next;
+		tmp = tmp->next;
 	}
 	return (1);
 }

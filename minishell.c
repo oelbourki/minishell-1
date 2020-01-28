@@ -19,10 +19,13 @@ int		main(int argc, char **argv, char **envp)
 	char		*line;
 	int			ret;
 
+	signal(SIGINT, signal_x);
+	signal(SIGQUIT, signal_x);
 	(void)argc;
 	(void)argv;
 	environt = NULL;
 	command = NULL;
+	variables = NULL;
 	environt = copyEnvp(envp);
 	tmp = ft_strdup("");
 	while (1)
@@ -39,7 +42,10 @@ int		main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			else
+			{
+				ft_putstr_fd("exit",1);
 				exit(-1);
+			}
 		}
 		line = ft_strjoin(tmp, line);
 		free(tmp);

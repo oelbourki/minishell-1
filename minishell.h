@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/26 14:47:19 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/28 08:56:42 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 #include "libft.h"
 #include <fcntl.h>
 #include <sys/stat.h>
-
+#include "libftprintf.h"
 /* * * * * * */
 const static char *commands[] = {
     "echo",
@@ -43,6 +43,7 @@ const static char *commands[] = {
     "unset",
     "env",
     "exit",
+    "var",
 };
 
 int  is_cmd(char * sem);
@@ -50,6 +51,13 @@ int   ft_exx(char **arg,int first,int last,int input);
 int cd(char *s);
 int     pwd();
 int   export(char **arg);
+void    ft_free(char **arg);
+void    ft_free_star(char **arg);
+int		unset(char **arg);
+char		*var(char *s);
+void	signal_x(int f);
+
+
 /* * * * */
 
 
@@ -69,8 +77,9 @@ typedef	struct	s_env
 }				t_env;
 
 t_env		*environt;
-
+t_env		*variables;
 int	env_declarex(t_env *ls);
+int	env_var(t_env *ls);
 t_command	*ft_lstnew_command(char *str, int what);
 void		ft_lstadd_back_command(t_command **alst, t_command *new);
 t_env  		*copyEnvp(char **envp);
@@ -82,5 +91,8 @@ void	    ft_lstclear_command(t_command **alst);
 int         the_main(t_command *head);
 t_command   **get_semi(t_command *head,int *N);
 t_command   **get_pipe(t_command *head,int *n);
+void	ft_lstadd_back_envp(t_env **alst, t_env *new);
 
+
+void    push_back_ex(t_env **head,t_env *data,char **s);
 #endif
