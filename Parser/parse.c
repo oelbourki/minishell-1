@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 12:33:47 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 13:23:18 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ t_command	*putspacecmd(int *fin, int *is_cmd, char *tmp, t_command *cmd)
 	return (cmd);
 }
 
+void		init_parse_var(int *qoute, int *is_cmd)
+{
+	g_start = 0;
+	*is_cmd = 0;
+	*qoute = 0;
+}
+
 t_command	*parse(char *line, t_command *cmd)
 {
 	int		i;
@@ -48,9 +55,7 @@ t_command	*parse(char *line, t_command *cmd)
 	int		qoute;
 
 	i = 0;
-	g_start = 0;
-	is_cmd = 0;
-	qoute = 0;
+	init_parse_var(&qoute, &is_cmd);
 	tmp = ft_strtrim(line, " \t");
 	while (tmp[i] != '\0')
 	{
@@ -71,7 +76,7 @@ t_command	*parse(char *line, t_command *cmd)
 	return (cmd);
 }
 
-void	print_command(t_command *g_command)
+void		print_command(t_command *g_command)
 {
 	while (g_command != NULL)
 	{

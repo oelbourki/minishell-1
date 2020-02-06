@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 12:47:52 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 14:16:58 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void					signal_x(int f);
 void					ft_free_void_star(void **arg);
 void					ft_free_void(void **arg);
 void					signal_int(int f);
+char					*ft_strcat(char *dest, char *src, int *j);
 char					*ft_strcpy(char *dest, char *src);
 void					signal_quit(int f);
 int						is_string(char *s);
@@ -143,5 +144,8 @@ t_command				*putspacecmd(int *fin, int *is_cmd,
 											char *tmp, t_command *cmd);
 t_command				*rediriction_out(int *i, int *is_cmd,
 											char *tmp, t_command *cmd);
+char					*put_value_of_dollar(char *str, t_env *g_environt,
+																int *i);
+char					*back_slach(char *new, char *str, int *i, int *j);
 
 #endif
