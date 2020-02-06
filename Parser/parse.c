@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 13:23:18 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 22:27:52 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,33 @@ t_command	*putspacecmd(int *fin, int *is_cmd, char *tmp, t_command *cmd)
 	return (cmd);
 }
 
+void		slach_boucle(char *tmp, int *i)
+{
+	int slach;
+
+	slach = 0;
+	while (tmp[*i] != ' ' && tmp[*i] != '\t')
+	{
+		while (tmp[*i] == '\\')
+		{
+			(*i) += 1;
+			slach += 1;
+		}
+		if (ft_strchr("|;<>$", tmp[*i]) != NULL)
+		{
+			if ((slach % 2) == 0)
+			{
+				(*i) -= 1;
+				break ;
+			}
+		}
+		if (tmp[*i] == '\0')
+			break ;
+		(*i) += 1;
+	}
+	g_to_skip = ((slach % 2) == 0) ? 0 : 1;
+}
+
 void		init_parse_var(int *qoute, int *is_cmd)
 {
 	g_start = 0;
@@ -68,7 +95,9 @@ t_command	*parse(char *line, t_command *cmd)
 		else if (tmp[i] == '>' && qoute == 0)
 			cmd = rediriction_out(&i, &is_cmd, tmp, cmd);
 		if (tmp[i] == '\\')
-			g_to_skip = (g_to_skip == 0) ? 1 : 0;
+			slach_boucle(tmp, &i);
+		if (tmp[i] == '\0')
+			break ;
 		i++;
 	}
 	cmd = putspacecmd(&i, &is_cmd, tmp, cmd);
