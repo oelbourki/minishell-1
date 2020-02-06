@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:36:00 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 21:53:38 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:32:01 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		unset(char **arg)
     t_env *cmdx;
     int r;
 
-    cmd = &environt;
+    cmd = &g_environt;
     cmdx = *cmd;
     if ((r = help_unset(arg, cmdx, cmd)))
         return (r);

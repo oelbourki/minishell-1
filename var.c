@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:08:17 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 15:09:55 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:32:01 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*var(char *s)
     t_env *cmd;
     char *var;
 
-    cmd = environt;
+    cmd = g_environt;
     if (s == NULL)
         return (0);
 	i = 0;
@@ -40,7 +40,7 @@ int	env_var(t_env *ls)
 	tmp = ls;
 	while (tmp != NULL)
 	{
-		printf("%s=%s\n", tmp->variable, tmp->value);
+		ft_printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 09:49:52 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 12:37:14 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	g_pid = 0;
-	environt = NULL;
-	command = NULL;
-	environt = copyEnvp(envp);
+	g_environt = NULL;
+	g_command = NULL;
+	g_environt = copyenvp(envp);
 	tmp = ft_strdup("");
 	signal(SIGINT, signal_int);
 	signal(SIGQUIT, signal_quit);
@@ -38,7 +38,9 @@ int		main(int argc, char **argv, char **envp)
 		{
 			if (line[0] != '\0' || tmp[0] != '\0')
 			{
+				a_free = tmp;
 				tmp = ft_strjoin(tmp, line);
+				free(a_free);
 				free(line);
 				continue ;
 			}
@@ -47,8 +49,8 @@ int		main(int argc, char **argv, char **envp)
 				ft_putstr_fd("exit\n", 1);
 				free(tmp);
 				free(line);
-				ft_lstclear_command(&command);
-				ft_lstclear_env(&environt);
+				ft_lstclear_command(&g_command);
+				ft_lstclear_env(&g_environt);
 				exit(0);
 			}
 		}
@@ -59,12 +61,12 @@ int		main(int argc, char **argv, char **envp)
 		tmp = ft_strdup("");
 		/* you need to remove this free */
 		// free(tmp);
-		command = parse(line, command);
-		command = double_simple_qoute(command, environt);
-		// print_command(command);
-		the_main(command);
-		ft_lstclear_command(&command);
-		// ft_lstclear_env(&environt);
+		g_command = parse(line, g_command);
+		g_command = double_simple_qoute(g_command, g_environt);
+		// print_command(g_command);
+		the_main(g_command);
+		ft_lstclear_command(&g_command);
+		// ft_lstclear_env(&g_environt);
 		free(line);
 	}
 }

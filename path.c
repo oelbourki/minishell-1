@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:51:23 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 09:15:54 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 12:33:47 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *path(char *f)
 	}
 	if ((tmp = help_path(s, f)))
 		return (tmp);
-	ft_printf("bash: %s: command not found\n", f);
+	ft_printf("bash: %s: g_command not found\n", f);
 	g_status = 1;
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 08:41:52 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 12:37:14 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_lstadd_back_envp(t_env **alst, t_env *new)
 	}
 }
 
-t_env  *copyEnvp(char **envp)
+t_env  *copyenvp(char **envp)
 {
 	int         i;
 	t_env  	*node;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 21:55:37 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 22:56:32 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:34:49 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int  is_cmd(char * sem)
     i = 0;
 	while (i < 8)
 	{
-		if (!ft_strcmp(sem, commands[i]))
+		if (!ft_strcmp(sem, g_commands[i]))
 			return (1);
 		i++;
 	}

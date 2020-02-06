@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:35:26 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 21:53:17 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:32:01 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    help_export(char **arg)
     data->variable = ft_strdup(s[0]);
     data->value = ft_strdup(s[1]);
     data->next = NULL;
-    push_back_ex(&environt, data, s);
+    push_back_ex(&g_environt, data, s);
     ft_free_star(s);
 }
 
@@ -32,7 +32,7 @@ int    export(char **arg)
 
     s = "bash: export: `=': not a valid identifier\n";
     if (arg[1] == NULL)
-        env_declarex(environt);
+        env_declarex(g_environt);
     else
     {
         if (arg[1][0] == '=')

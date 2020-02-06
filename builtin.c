@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:03:33 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 09:22:21 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:11:29 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int cd(char *s)
     help_cd(s, h);
     if (chdir(g_buff) != 0)
     {
-        printf("cd: %s: No such file or directory\n", g_buff);
+        ft_printf("cd: %s: No such file or directory\n", g_buff);
         g_status = 1;
         return (0);
     }

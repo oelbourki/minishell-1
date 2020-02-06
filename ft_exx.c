@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:28:42 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 08:57:00 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 12:33:47 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int		built(char **arg)
 	if (!ft_strcmp(arg[0], "cd"))
 		return (cd(arg[1]));
 	if (!ft_strcmp(arg[0], "env"))
-		return (env(environt));
+		return (env(g_environt));
 	if (!ft_strcmp(arg[0], "exit"))
 	{
-		ft_lstclear_command(&command);
+		ft_lstclear_command(&g_command);
 		exit(0);
 	}
 	if (!ft_strcmp(arg[0], "export"))
@@ -72,7 +72,7 @@ int		built_child(char **arg)
 	else if (!ft_strcmp(arg[0], "echo"))
 		echo(arg);
 	else if (!ft_strcmp(arg[0], "env"))
-		env(environt);
+		env(g_environt);
 	else if (!ft_strcmp(arg[0], "unset"))
 		unset(arg);
 	else if (!ft_strcmp(arg[0], "export"))
@@ -101,14 +101,14 @@ int		child(char **arg, int first, int last, int input)
 	dupx(first, last, input, g_fd);
 	if (built_child(arg))
 	{
-		if (execve(arg[0], &arg[0], environ))
+		if (execve(arg[0], &arg[0], NULL))
 			perror("exceve");
 	}
 	close_fd();
 	return (1);
 }
 
-int   ft_exx(char **arg, int first, int last, int input)
+int		ft_exx(char **arg, int first, int last, int input)
 {
 	int g_status;
 
