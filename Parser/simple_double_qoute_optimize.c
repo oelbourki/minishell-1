@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 16:50:32 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 16:51:47 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		finition_simple_qoute(int *i, t_command *tmp, char *new, int *j)
 void		finition_double_qoute(int *i, t_command *tmp, char **new, int *j)
 {
 	(*i) += 1;
-	g_put = 0;
 	while (tmp->str[*i] != '"' && tmp->str[*i] != '\0')
 	{
 		if (tmp->str[*i] == '\\' && ft_strchr("\\\"$", tmp->str[(*i) + 1]))
@@ -61,7 +60,10 @@ int			norm_double_simple_qoute(int *i, int *j, t_command *tmp, char **new)
 	if (tmp->str[*i] == '\'')
 		finition_simple_qoute(i, tmp, *new, j);
 	else if (tmp->str[*i] == '"')
+	{
+		g_put = 0;
 		finition_double_qoute(i, tmp, new, j);
+	}
 	else if (tmp->str[*i] == '$')
 	{
 		*new[*j] = '\0';
