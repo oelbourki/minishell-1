@@ -50,8 +50,9 @@ void	ft_lstclear_command(t_command **alst)
 	while (curr != NULL)
 	{
 		next = curr->next;
-		free(curr->str);
+		ft_free(&curr->str);
 		free(curr);
+		curr = NULL;
 		curr = next;
 	}
 	*alst = NULL;

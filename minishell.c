@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-int		main(int argc, char **argv, char **envp)
+int		main(int argc, char **g_argv, char **envp)
 {
-	t_command	*command;
 	char		*tmp;
 	char		*line;
 	int			ret;
 
-	signal(SIGINT, signal_x);
-	signal(SIGQUIT, signal_x);
+	g_pid = 1;
+	signal(SIGINT, signal_int);
+	signal(SIGQUIT, signal_quit);
 	(void)argc;
-	(void)argv;
+	(void)g_argv;
 	environt = NULL;
 	command = NULL;
 	variables = NULL;
@@ -30,6 +30,7 @@ int		main(int argc, char **argv, char **envp)
 	tmp = ft_strdup("");
 	while (1)
 	{
+		g_pid = 1;
 		if (tmp[0] == 0)
 			ft_putstr_fd("root@e120e15p3 # ", 1);
 		ret = get_next_line(0, &line);
@@ -44,6 +45,7 @@ int		main(int argc, char **argv, char **envp)
 			else
 			{
 				ft_putstr_fd("exit",1);
+				ft_lstclear_command(&command);
 				exit(-1);
 			}
 		}
@@ -52,7 +54,7 @@ int		main(int argc, char **argv, char **envp)
 		tmp = ft_strdup("");
 		command = parse(line, command);
 		command = double_simple_qoute(command, environt);
-		print_command(command);
+		// print_command(command);
 		the_main(command);
 		ft_lstclear_command(&command);
 		free(line);

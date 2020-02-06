@@ -52,30 +52,3 @@ t_env  *copyEnvp(char **envp)
 }
 
 /* you must remove that after finich */
-int	env(t_env *ls)
-{
-	t_env *tmp;
-
-	if (ls == NULL)
-		return 0;
-	tmp = ls;
-	while (tmp != NULL)
-	{
-		printf("%s=%s\n", tmp->variable, tmp->value);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int	env_declarex(t_env *ls)
-{
-	t_env *tmp;
-
-	tmp = ls;
-	while (tmp != NULL)
-	{
-		printf("declare -x %s=%s\n", ls->variable, ls->value);
-		tmp = tmp->next;
-	}
-	return (1);
-}

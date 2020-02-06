@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/28 12:20:05 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/05 10:03:56 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,6 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include "libftprintf.h"
-/* * * * * * */
-const static char *commands[] = {
-    "echo",
-    "cd",
-    "pwd",
-    "export",
-    "unset",
-    "env",
-    "exit",
-    "var",
-};
-
-int  is_cmd(char * sem);
-int   ft_exx(char **arg,int first,int last,int input);
-int cd(char *s);
-int     pwd();
-int   export(char **arg);
-void    ft_free(char **arg);
-void    ft_free_star(char **arg);
-int		unset(char **arg);
-char		*var(char *s);
-void	signal_x(int f);
-void    ft_free_void_star(void **arg);
-void    ft_free_void(void **arg);
-
-
-/* * * * */
-
 
 
 typedef	struct	s_command
@@ -71,13 +43,89 @@ typedef	struct	s_command
 	struct	s_command	*next;
 }				t_command;
 
+
+typedef struct vars
+{
+	int n;
+	int m;
+	t_command **semi;
+	int i;
+	int j;
+	int first;
+	t_command **pipe;
+	int input;
+	char **arg;
+}t_vars;
+
+/* * * * * * */
+const static char *commands[] = {
+	"echo",
+	"cd",
+	"pwd",
+	"export",
+	"unset",
+	"env",
+	"exit",
+	"var",
+};
+
+int		is_cmd(char * sem);
+int		ft_exx(char **arg,int first,int last,int input);
+int		cd(char *s);
+int		pwd();
+int		export(char **arg);
+int		ft_free(char **arg);
+int		ft_free_star(char **arg);
+int		unset(char **arg);
+char	*var(char *s);
+void	signal_x(int f);
+void	ft_free_void_star(void **arg);
+void	ft_free_void(void **arg);
+void	signal_int(int f);
+void	signal_quit(int f);
+int		is_string(char *s);
+int		echo(char **g_argv);
+int		do_someout(t_command **head);
+int		do_someout_1(t_command **head);
+int		do_somein(t_command **head);
+int		do_somein_1(t_command **head);
+char	*path(char *f);
+int		cd1(char *s);
+void	init_t_vars(t_vars *var);
+void	push_back1(t_command **head,char *str,int what);
+int		ft_strcmp(const char *s1, const char *s2);
+char	**help_convert1(t_command *counter);
+char	**convert(t_command *head);
+void	ft_print(char *s);
+int g_pid;
+int g_multi_redout;
+int g_status;
+int g_p;
+int g_mul_redin;
+int g_out_fd;
+int g_in_fd;
+extern char **environ;
+int g_fd[2];
+struct stat g_buffer;
+char **g_argv;
+char g_buff[100];
+t_command *g_counter;
+t_vars g_var;
+/* * * * */
+
+
+
+
+
 typedef	struct	s_env
 {
 	char	*variable;
 	char	*value;
 	struct	s_env	*next;
 }				t_env;
-
+///
+	t_command	*command;
+///
 t_env		*environt;
 t_env		*variables;
 int	env_declarex(t_env *ls);
