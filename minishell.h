@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 14:16:58 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 18:28:36 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char					g_buff[100];
 t_command				*g_counter;
 t_vars					g_var;
 t_env					*g_environt;
+char					**g_environ;
 t_env					*g_variables;
 int						g_to_skip;
 t_command				*g_command;

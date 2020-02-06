@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:32:33 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 09:50:13 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 21:01:54 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    print_echo(char **g_argv, int i,int argc)
     while (g_argv[i])
     {
         write(1, g_argv[i], strlen(g_argv[i]));
-        if (i != argc - 1)
+        if (i != argc - 1 && ft_strcmp(g_argv[i], "") && ft_strcmp(g_argv[i], "\\") && ft_strcmp(g_argv[i + 1], "|"))
             write(1, " ", 1);
         i++;
     }

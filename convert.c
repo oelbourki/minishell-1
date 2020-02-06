@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 09:44:21 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 20:57:51 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ char **convert(t_command *head)
 	t_command *counter;
 
 	counter = head;
-	if (counter->what == REDOUT)
+	if (counter != NULL && counter->what == REDOUT)
 	{
 		if (!do_someout(&counter))
 			return (NULL);
 		else 
 			return (g_argv);
 	}
-	if (counter->what == REDIN)
+	if (counter != NULL && counter->what == REDIN)
 	{
 		if (!do_somein(&counter))
 			return (NULL);

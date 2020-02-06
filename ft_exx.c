@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:28:42 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 12:33:47 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 18:28:06 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		child(char **arg, int first, int last, int input)
 	dupx(first, last, input, g_fd);
 	if (built_child(arg))
 	{
-		if (execve(arg[0], &arg[0], NULL))
+		if (execve(arg[0], &arg[0], g_environ))
 			perror("exceve");
 	}
 	close_fd();
