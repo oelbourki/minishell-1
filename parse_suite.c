@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/01/27 18:12:12 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/01/29 13:49:23 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,43 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
+char	*backSlach(char *new, char *str, int *i, int *j)
+{
+	int		slach;
+
+	slach = 0;
+	while (str[*i] != '\0')
+	{
+		if (str[*i] == '\\')
+		{
+			while (str[*i] == '\\')
+			{
+				new[(*j)++] = str[(*i)++];
+				slach += 1;
+			}
+			if (slach % 2 == 1)
+				*j -= 1;
+			*i -= 1;
+		}
+		else if (str[*i] == '$' && (slach % 2) == 0)
+		{
+			*i -= 1;
+			new[*j] = '\0';
+			return (new);
+		}
+		else
+			new[(*j)++] = str[(*i)];
+		if (str[*i] == '\0')
+		{
+			new[*j] = '\0';
+			return (new);
+		}
+		*i += 1;
+	}
+	new[*j] = '\0';
+	return (new);
+}
+
 t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 {
 	t_command	*tmp;
@@ -124,9 +161,7 @@ t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 		j = 0;
 		while (tmp->str[i] != '\0')
 		{
-			if (tmp->str[i] == '\\' && tmp->str[i + 1] != '\0')
-				new[j++] = tmp->str[++i];
-			else if (tmp->str[i] == '\'')
+			if (tmp->str[i] == '\'')
 			{
 				i += 1;
 				while (tmp->str[i] != '\''  && tmp->str[i] != '\0')
@@ -145,7 +180,9 @@ t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 					if (tmp->str[i] == '\\' && ft_strchr("\\\"$", tmp->str[i + 1]))
 						new[j++] = tmp->str[++i];
 					else if (tmp->str[i] == '$')
+					{
 						new = ft_strcat(new, put_value_of_dollar(tmp->str, environt, &i), &j);
+					}
 					else
 						new[j++] = tmp->str[i];
 					i += 1;
@@ -161,6 +198,12 @@ t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 				new[j] = '\0';
 				new = ft_strcat(new, put_value_of_dollar(tmp->str, environt, &i), &j);
 			}
+			else if (tmp->str[i] == '\\')
+			{
+				new = backSlach(new, tmp->str, &i, &j);
+				if (tmp->str[i] == '\0')
+					break ;
+			}
 			else
 				new[j++] = tmp->str[i];
 			i++;
@@ -172,5 +215,6 @@ t_command	*double_simple_qoute(t_command *cmd, t_env *environt)
 		free(a_free);
 		tmp = tmp->next;
 	}
+	free(new);
 	return (cmd);
 }
