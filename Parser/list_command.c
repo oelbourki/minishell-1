@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_var_env_list.c                                 :+:      :+:    :+:   */
+/*   list_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 15:15:48 by ibaali           ###   ########.fr       */
+/*   Created: 2020/02/07 15:09:19 by ibaali            #+#    #+#             */
+/*   Updated: 2020/02/07 15:16:12 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstadd_back_envp(t_env **alst, t_env *new)
+t_command	*ft_lstnew_command(char *str, int what)
 {
-	t_env	*tmp;
+	t_command	*new;
+
+	new = (t_command*)malloc(sizeof(t_command));
+	if (new == NULL)
+		return (NULL);
+	new->str = ft_strdup(str);
+	new->what = what;
+	new->next = NULL;
+	return (new);
+}
+
+void		ft_lstadd_back_command(t_command **alst, t_command *new)
+{
+	t_command	*tmp;
 
 	tmp = *alst;
 	if (*alst == NULL)
@@ -27,42 +40,16 @@ void	ft_lstadd_back_envp(t_env **alst, t_env *new)
 	}
 }
 
-t_env	*copyenvp(char **envp)
+void		ft_lstclear_command(t_command **alst)
 {
-	int		i;
-	t_env	*node;
-	t_env	*lst;
-	char	**splited;
-
-	i = 0;
-	lst = NULL;
-	while (envp[i] != NULL)
-	{
-		node = (t_env*)malloc(sizeof(t_env));
-		splited = ft_split(envp[i], '=');
-		node->variable = ft_strdup(splited[0]);
-		node->value = ft_strdup(splited[1]);
-		node->next = NULL;
-		ft_lstadd_back_envp(&lst, node);
-		free(splited[0]);
-		free(splited[1]);
-		free(splited);
-		i++;
-	}
-	return (lst);
-}
-
-void	ft_lstclear_env(t_env **alst)
-{
-	t_env	*curr;
-	t_env	*next;
+	t_command	*curr;
+	t_command	*next;
 
 	curr = *alst;
 	while (curr != NULL)
 	{
 		next = curr->next;
-		ft_free(&curr->variable);
-		ft_free(&curr->value);
+		free(curr->str);
 		free(curr);
 		curr = next;
 	}

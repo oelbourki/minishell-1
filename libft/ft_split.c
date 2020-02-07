@@ -3,128 +3,125 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 10:38:27 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/28 12:28:51 by oel-bour         ###   ########.fr       */
+/*   Created: 2019/10/11 08:08:09 by ibaali            #+#    #+#             */
+/*   Updated: 2020/02/07 16:16:41 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count(char *s, char c)
+static int	is_repeat(char const *s, char c, int i)
 {
-	int i;
-	int j;
-	int l;
-
-	l = ft_strlen(s);
-	j = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c && s[i] != '\0' && s[i + 1] != c)
-			j++;
+	while (s[i + 1] == c)
 		i++;
-	}
-	if (l >= 1)
-	{
-		if (s[0] != c && s[l - 1] != c)
-			return (j + 1);
-		if (s[0] == c && s[l - 1] == c)
-			return (j - 1);
-	}
-	return (j);
+	return (i);
 }
 
-int			count_max_word(char *s, char c)
+static int	nb_wd(char const *s, char c)
 {
 	int		i;
-	int		j;
+	int		wd;
+
+	i = 0;
+	wd = 0;
+	if (s[i] == '\0')
+		return (0);
+	while (s[i] != '\0' && s[i] == c)
+		i++;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+		{
+			wd++;
+			i = is_repeat(s, c, i);
+		}
+		i++;
+	}
+	if (s == NULL)
+		return (0);
+	return ((s[i - 1] == c) ? wd : wd + 1);
+}
+
+static int	nb_ch(char const *s, char c)
+{
+	int		i;
+	int		ch;
 	int		max;
 
-	max = 0;
-	j = 0;
 	i = 0;
+	ch = 0;
+	max = 0;
+	while (s[i] != '\0' && s[i] == c)
+		i++;
 	while (s[i] != '\0')
 	{
-		while (s[i] != c && s[i] != '\0')
+		ch += 1;
+		if (s[i] == c)
 		{
-			j++;
-			i++;
-		}
-		if (j > max)
-		{
-			max = j;
-			j = 0;
+			i = is_repeat(s, c, i);
+			if (ch > max)
+			{
+				max = ch;
+				ch = 0;
+			}
 		}
 		i++;
 	}
-	return (max);
+	return ((ch > max) ? ch : max - 1);
 }
 
-static char	**final(char const *s, char **words, char c, int coun)
+static char	**fill_range(char **range, char const *s, char c, int wd)
 {
 	int		i;
 	int		j;
-	int		x;
+	int		k;
 
 	i = 0;
+	k = 0;
 	j = 0;
-	x = 0;
-	while (i < coun)
+	while (i < wd)
 	{
-		while (s[j] == c)
-			j++;
-		x = 0;
-		while (s[j] != c && s[j] != '\0')
+		while (s[k] == c)
+			k++;
+		j = 0;
+		while (s[k] != c && s[k] != '\0')
 		{
-			words[i][x] = s[j];
-			x++;
+			range[i][j] = s[k++];
 			j++;
 		}
-		words[i][x] = '\0';
+		range[i][j] = '\0';
 		i++;
 	}
-	words[i] = NULL;
-	return (words);
-}
-
-char		**setfree(char **words, int i)
-{
-	if (words == NULL)
-		return (NULL);
-	while (i >= 0)
-	{
-		free(words[i]);
-		i--;
-	}
-	free(words);
-	return (NULL);
+	range[wd] = NULL;
+	return (range);
 }
 
 char		**ft_split(char const *s, char c)
 {
-	int		coun;
+	char	**range;
 	int		i;
-	char	**words;
-	int		m;
+	int		wd;
 
 	if (s == NULL)
 		return (NULL);
-	m = count_max_word((char *)s, c);
-	coun = count((char *)s, c);
-	words = (char**)malloc((coun + 1) * sizeof(char*));
-	if (words == NULL)
-		return (NULL);
 	i = 0;
-	while (i < coun)
+	wd = nb_wd(s, c);
+	range = (char**)malloc((wd + 1) * sizeof(char*));
+	if (range == NULL)
+		return (NULL);
+	while (i < wd)
 	{
-		words[i] = (char*)malloc((m + 1) * sizeof(char));
-		if (words[i] == NULL)
-			return (setfree(words, i));
-		i++;
+		range[i++] = (char*)malloc(nb_ch(s, c) * sizeof(char) + 1);
+		if (range[i - 1] == NULL)
+		{
+			while (--i >= 0)
+				free(range[i]);
+			free(range);
+			return (NULL);
+		}
 	}
-	words[i] = NULL;
-	return (final(s, words, c, coun));
+	range = fill_range(range, s, c, wd);
+	return (range);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 12:11:04 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:11:16 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		control_d(char **line, char **tmp)
 void	color_prompt(void)
 {
 	ft_putstr_fd("\033[1;31m", 1);
-	ft_putstr_fd("root@e120e15p3 # ", 1);
+	ft_putstr_fd("root@e120e15p3# ", 1);
 	ft_putstr_fd("\033[0m", 1);
 }
 

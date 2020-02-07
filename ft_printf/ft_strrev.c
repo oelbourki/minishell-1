@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 15:06:04 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 15:11:16 by ibaali           ###   ########.fr       */
+/*   Created: 2019/11/08 09:17:13 by ibaali            #+#    #+#             */
+/*   Updated: 2019/11/08 09:20:04 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "ft_printf.h"
 
-void	signal_int(int f)
+void	ft_strrev(char *str)
 {
-	if (g_pid == 0)
-		ft_putstr_fd("\nroot@e120e15p3# ", 1);
-	else
-		ft_putstr_fd("\n", 1);
-}
+	int		i;
+	int		len;
+	char	temp;
 
-void	signal_quit(int f)
-{
-	f = 0;
+	i = 0;
+	len = ft_strlen(str);
+	while (i < (len / 2))
+	{
+		temp = str[i];
+		str[i] = str[len - i - 1];
+		str[len - i - 1] = temp;
+		i++;
+	}
 }

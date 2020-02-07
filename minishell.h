@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 12:01:21 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:53:04 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include "get_next_line.h"
-# include "libft.h"
+# include "libft/libft.h"
 # include <fcntl.h>
 # include <sys/stat.h>
-# include "libftprintf.h"
+# include "ft_printf/ft_printf.h"
 
 typedef	struct			s_command
 {
