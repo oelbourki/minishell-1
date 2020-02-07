@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 18:28:36 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:31:09 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int						is_cmd(char *sem);
 int						ft_exx(char **arg, int first, int last, int input);
 int						cd(char *s);
 int						pwd();
+t_command				*parse_error(t_command *cmd);
 int						export(char **arg);
 int						env_declarex(t_env *ls);
 t_command				*ft_lstnew_command(char *str, int what);
