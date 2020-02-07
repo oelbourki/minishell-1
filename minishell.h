@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 18:28:36 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:01:21 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,19 @@ char					g_buff[100];
 t_command				*g_counter;
 t_vars					g_var;
 t_env					*g_environt;
-char					**g_environ;
 t_env					*g_variables;
 int						g_to_skip;
 t_command				*g_command;
 int						g_start;
+char					**g_environ;
 
+void					to_lower(t_command **counter);
+int						error(void);
+int						end(int last, int input, int fd[2]);
+void					dupx(int first, int last,
+							int input, int fd[2]);
 int						ft_free(char **arg);
-void					ft_print(char *s);
+int						ft_print(char *s);
 int						ft_free_star(char **arg);
 int						unset(char **arg);
 char					*var(char *s);
@@ -136,7 +141,7 @@ int						env(t_env *ls);
 void					print_command(t_command *g_command);
 void					ft_lstclear_command(t_command **alst);
 int						the_main(t_command *head);
-t_command				**get_semi(t_command *head, int *N);
+t_command				**get_semi(t_command *head, int *n);
 t_command				**get_pipe(t_command *head, int *n);
 void					ft_lstclear_env(t_env **alst);
 t_command				*pipe_rin_semicol(int *i, int *is_cmd,
@@ -148,5 +153,5 @@ t_command				*rediriction_out(int *i, int *is_cmd,
 char					*put_value_of_dollar(char *str, t_env *g_environt,
 																int *i);
 char					*back_slach(char *new, char *str, int *i, int *j);
-
+t_command				*parse_error(t_command *cmd);
 #endif

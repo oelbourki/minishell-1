@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:28:42 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 18:28:06 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 18:26:34 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		end(int last, int input, int fd[2])
-{
-	if (last == 1)
-		close(fd[0]);
-	if (input != 0)
-		close(input);
-	close(fd[1]);
-	return (fd[0]);
-}
-
-void	dupx(int first, int last, int input, int fd[2])
-{
-	if (first == 1 && last == 0 && input == 0)
-		dup2(fd[1], 1);
-	else if (first == 0 && last == 0 && input != 0)
-	{
-		dup2(input, 0);
-		dup2(fd[1], 1);
-	}
-	else
-		dup2(input, 0);
-	if (g_multi_redout == 1)
-		dup2(g_out_fd, 1);
-	if (g_mul_redin == 1)
-		dup2(g_in_fd, 0);
-}
+#include "../minishell.h"
 
 int		built(char **arg)
 {

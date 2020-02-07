@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var_env_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:49:34 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 15:45:36 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:13:14 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ void	ft_lstclear_env(t_env **alst)
 	curr = *alst;
 	while (curr != NULL)
 	{
+		puts("*");
 		next = curr->next;
-		free(curr->variable);
-		free(curr->value);
+		ft_free(&curr->variable);
+		ft_free(&curr->value);
 		free(curr);
 		curr = next;
 	}

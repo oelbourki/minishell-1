@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var.c                                              :+:      :+:    :+:   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 15:08:17 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 12:32:01 by ibaali           ###   ########.fr       */
+/*   Created: 2020/02/07 11:26:46 by ibaali            #+#    #+#             */
+/*   Updated: 2020/02/07 11:48:13 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char		*var(char *s)
+t_command	*parse_error(t_command *cmd)
 {
-	int		i;
-	t_env *tmp;
-    t_env *cmd;
-    char *var;
+	t_command	*tmp;
+	t_command	*prev;
 
-    cmd = g_environt;
-    if (s == NULL)
-        return (0);
-	i = 0;
-	while (cmd)
-	{
-		if (ft_strncmp(s, cmd->variable, ft_strlen(s)) == 0)
-			return (cmd->value);
-		cmd = cmd->next;
-	}
-	return (0);
-}
-
-int	env_var(t_env *ls)
-{
-	t_env *tmp;
-	if (ls == NULL)
-		return 0;
-	tmp = ls;
+	tmp = cmd;
 	while (tmp != NULL)
 	{
-		ft_printf("%s=%s\n", tmp->variable, tmp->value);
+		if (tmp->next != NULL && tmp->what == STRING && tmp->next->what ==
+		STRING && ft_strchr("|;<>", tmp->next->str[0]) != NULL)
+		{
+			tmp->str = ft_strjoin(tmp->str, tmp->next->str);
+			tmp->next->str[0] = '\0';
+			prev = tmp->next;
+			tmp->next = tmp->next->next;
+			free(prev->str);
+			free(prev);
+		}
 		tmp = tmp->next;
 	}
-	return (1);
+	return (cmd);
 }

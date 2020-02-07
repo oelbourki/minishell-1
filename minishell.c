@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/06 21:00:26 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:11:04 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		control_d(char **line, char **tmp)
 		free(*line);
 		ft_lstclear_command(&g_command);
 		ft_lstclear_env(&g_environt);
+		// ft_lstclear_env(&g_variables);
 		exit(0);
 	}
 	return (0);
@@ -80,6 +81,7 @@ int		main(int argc, char **argv, char **envp)
 		tmp = ft_strdup("");
 		g_command = parse(line, g_command);
 		g_command = double_simple_qoute(g_command, g_environt);
+		g_command = parse_error(g_command);
 		print_command(g_command);
 		ft_putstr_fd("-----------------------\n", 1);
 		the_main(g_command);

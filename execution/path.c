@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:51:23 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 12:33:47 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/06 18:02:11 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char *help_path(char *s,char *f)
+char	*help_path(char *s, char *f)
 {
-	char **path;
-	int i;
-	char *tmp;
+	char	**path;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	path = ft_split(s, ':');
@@ -35,24 +35,23 @@ char *help_path(char *s,char *f)
 	return (NULL);
 }
 
-char *path(char *f)
+char	*path(char *f)
 {
 	char *s;
 	char *tmp;
 
 	if (is_cmd(f) || (stat(f, &g_buffer) == 0))
-		return (f);
+		return (ft_strdup(f));
 	s = var("PATH");
-	// s = "/Users/oel-bour/goinfre/homebrew/bin:/Users/oel-bour/.brew/opt/openssl@1.1/bin:/Users/oel-bour/goinfre/anaconda3/bin:/Users/oel-bour/goinfre/anaconda3/condabin:/Users/oel-bour/.brew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki";
 	if (s == NULL)
 	{
-		ft_printf("bash: %s: .No such file or directory\n", f);
+		ft_printf("bash: %s: No such file or directory\n", f);
 		g_status = 1;
 		return (NULL);
 	}
 	if ((tmp = help_path(s, f)))
 		return (tmp);
-	ft_printf("bash: %s: g_command not found\n", f);
+	ft_printf("bash: %s: command not found\n", f);
 	g_status = 1;
 	return (NULL);
 }

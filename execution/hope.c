@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HOPE.c                                             :+:      :+:    :+:   */
+/*   hope.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 22:54:07 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 18:02:11 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	help_the_main()
+void	help_the_main(void)
 {
 	while (g_var.j < g_var.n - 1)
 	{
@@ -25,7 +25,7 @@ void	help_the_main()
 	}
 }
 
-int     the_main(t_command *head)
+int		the_main(t_command *head)
 {
 	init_t_vars(&g_var);
 	g_var.semi = get_semi(head, &g_var.m);

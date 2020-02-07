@@ -6,11 +6,11 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:33:39 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/04 15:37:16 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/06 18:02:11 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	env(t_env *ls)
 {

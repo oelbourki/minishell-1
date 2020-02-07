@@ -51,6 +51,7 @@ void	ft_lstclear_command(t_command **alst)
 	{
 		next = curr->next;
 		free(curr->str);
+		puts("*");
 		free(curr);
 		curr = next;
 	}

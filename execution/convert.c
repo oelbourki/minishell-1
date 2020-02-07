@@ -3,83 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/06 20:57:51 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:55:37 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int     help_convert2(t_command *counter)
+int		help_convert2(t_command *counter)
 {
-    char **arg;
-	t_env *node;
+	char	**arg;
+	t_env	*node;
 
 	if (counter->str != NULL && counter->str[0] != '=' &&
 	ft_strrchr(counter->str, '='))
 	{
 		node = (t_env*)malloc(sizeof(t_env));
-		arg = ft_split(counter->str,'=');
+		arg = ft_split(counter->str, '=');
 		node->variable = ft_strdup(arg[0]);
 		node->value = ft_strdup(arg[1]);
 		node->next = NULL;
-		push_back_ex(&g_variables, node,arg);
+		push_back_ex(&g_variables, node, arg);
 		ft_free_star(arg);
 		return (1);
 	}
-    return (0);
+	return (0);
 }
 
-char *help_convert(t_command *head)
+char	*help_convert(t_command *head)
 {
-	t_command *counter;
-    int r;
+	t_command	*counter;
+	int			r;
 
 	counter = head;
-	if (!(r = help_convert2(counter)) && counter->str != NULL && !ft_strcmp("export",counter->str))
+	if (!(r = help_convert2(counter)) && counter->str != NULL &&
+	!ft_strcmp("export", counter->str))
 	{
 		if (counter->next != NULL && counter->next->next != NULL &&
 		counter->next->next->str != NULL &&
-        !is_string(counter->next->next->str))
+		!is_string(counter->next->next->str))
 		{
 			ft_printf("bash: export: `%s': not a valid identifier\n",
 			counter->next->next->str);
-            g_status = 1;
+			g_status = 1;
 			return (NULL);
 		}
 	}
-    else if (r == 1)
-        return (NULL);
+	else if (r == 1)
+		return (NULL);
 	return (counter->str);
 }
 
-char **help_convert1(t_command *counter)
+char	**help_convert1(t_command *counter)
 {
+	char	*tmp;
+	int		i;
+
 	g_argv = (char**)ft_calloc(4096, sizeof(char*));
-	char *tmp;
-	int i = 0;
+	i = 0;
 	while (counter)
 	{
 		if (counter->what == PIPE || counter->what == SEMICOL)
 			break ;
-		if (do_somein_1(&counter) || do_someout_1(&counter))
-			break ;
+		if (do_somein_1(&counter) == -1 || do_someout_1(&counter) == -1)
+			return (NULL);
 		if (counter->what == COMMAND)
 		{
-			if (help_convert(counter) == NULL)
-				return (NULL);
-			tmp = path(counter->str);
-			if (tmp == NULL)
+			to_lower(&counter);
+			if (help_convert(counter) == NULL || !(tmp = path(counter->str)))
 				return (NULL);
 			g_argv[i] = ft_strdup(tmp);
-			// ft_free(&tmp);
-			// if (tmp != NULL)
-			// {
-			// 	free(tmp);
-			// 	tmp = NULL;
-			// }
+			free(tmp);
 		}
 		else
 			g_argv[i] = ft_strdup(counter->str);
@@ -90,7 +86,7 @@ char **help_convert1(t_command *counter)
 	return (g_argv);
 }
 
-char **convert(t_command *head)
+char	**convert(t_command *head)
 {
 	t_command *counter;
 
@@ -99,14 +95,14 @@ char **convert(t_command *head)
 	{
 		if (!do_someout(&counter))
 			return (NULL);
-		else 
+		else
 			return (g_argv);
 	}
 	if (counter != NULL && counter->what == REDIN)
 	{
 		if (!do_somein(&counter))
 			return (NULL);
-		else 
+		else
 			return (g_argv);
 	}
 	return (help_convert1(counter));
