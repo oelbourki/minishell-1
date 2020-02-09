@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hope.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/09 23:00:48 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	help_the_main(void)
 
 int		the_main(t_command *head)
 {
+	if (head == NULL)
+	{
+		g_status = 1;
+		return (0);
+	}
 	init_t_vars(&g_var);
 	g_var.semi = get_semi(head, &g_var.m);
 	while (g_var.i < g_var.m)
