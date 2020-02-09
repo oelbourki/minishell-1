@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:28:42 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:55:39 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int		child(char **arg, int first, int last, int input)
 
 int		ft_exx(char **arg, int first, int last, int input)
 {
-	int g_status;
-
 	if (arg == NULL || arg[0] == NULL)
 		return (-1);
 	pipe(g_fd);

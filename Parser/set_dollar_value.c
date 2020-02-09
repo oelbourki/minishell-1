@@ -3,30 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   set_dollar_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:35:38 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:49:16 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+t_env	*g_var_tmp;
+
 void	set_g_variables(char *new_str, char *var, int *j)
 {
 	int		k;
 
-	while (g_variables != NULL)
+	g_var_tmp = g_variables;
+	while (g_var_tmp != NULL)
 	{
-		if (ft_strncmp(var, g_variables->variable, ft_strlen(var)) == 0)
+		if (ft_strncmp(var, g_var_tmp->variable, ft_strlen(var)) == 0)
 		{
 			k = 0;
-			while (g_variables->value[k] != '\0')
-				new_str[(*j)++] = g_variables->value[k++];
+			while (g_var_tmp->value[k] != '\0')
+				new_str[(*j)++] = g_var_tmp->value[k++];
 			new_str[*j] = '\0';
 			return ;
 		}
-		g_variables = g_variables->next;
+		g_var_tmp = g_var_tmp->next;
 	}
 }
 
@@ -47,17 +50,18 @@ void	set_g_environt(char *new_str, char *var)
 	int		j;
 
 	j = 0;
-	while (g_environt != NULL)
+	g_var_tmp = g_environt;
+	while (g_var_tmp != NULL)
 	{
-		if (ft_strncmp(var, g_environt->variable, ft_strlen(var)) == 0)
+		if (ft_strncmp(var, g_var_tmp->variable, ft_strlen(var)) == 0)
 		{
 			k = 0;
-			while (g_environt->value[k] != '\0')
-				new_str[j++] = g_environt->value[k++];
+			while (g_var_tmp->value[k] != '\0')
+				new_str[j++] = g_var_tmp->value[k++];
 			new_str[j] = '\0';
 			return ;
 		}
-		g_environt = g_environt->next;
+		g_var_tmp = g_var_tmp->next;
 	}
 	set_g_variables(new_str, var, &j);
 	new_str[j] = '\0';

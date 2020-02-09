@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:53:57 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ char	**help_convert1(t_command *counter)
 			return (NULL);
 		if (counter->what == COMMAND && to_lower(&counter) == 1)
 		{
-			if (help_convert(counter) == NULL || !(tmp = path(counter->str)))
+			if ((help_convert(counter) == NULL || !(tmp = path(counter->str))
+			|| !(g_argv[i] = ft_strdup(tmp))) && !ft_free(&tmp))
 				return (NULL);
-			g_argv[i] = ft_strdup(tmp);
-			free(tmp);
 		}
-		else
+		else if (counter->what != REDIN && counter->what != REDOUT
+		&& counter->what != DOUBLEREDOUT)
 			g_argv[i] = ft_strdup(counter->str);
 		counter = counter->next;
 		i++;
