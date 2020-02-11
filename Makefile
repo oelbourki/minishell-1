@@ -6,7 +6,7 @@
 #    By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/02/09 23:13:29 by ibaali           ###   ########.fr        #
+#    Updated: 2020/02/11 15:16:21 by ibaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ LIBRARY = need/gnl.a need/libft.a need/libftprintf.a
 
 NAME = minishell
 
-FLAGS = -Wextra -Wall -Werror
+FLAGS = -Wextra -Wall -Werror -fsanitize=address -g
 
 INCLUDE = include
 

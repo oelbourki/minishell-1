@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/11 16:46:43 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_command	*putspacecmd(int *fin, int *is_cmd, char *tmp, t_command *cmd)
 		else
 			node = ft_lstnew_command(a_free, STRING);
 		ft_lstadd_back_command(&cmd, node);
+		printf("cmdooo = #%s#\n", node->str);
 	}
 	if (g_start < *fin)
 		*is_cmd = 1;
@@ -62,7 +63,14 @@ t_command	*parse(char *line, t_command *cmd)
 		if (ft_strchr(" \t", tmp[i]) != NULL && qoute == 0)
 			cmd = putspacecmd(&i, &is_cmd, tmp, cmd);
 		if (tmp[i] == '\'' || tmp[i] == '\"')
+		{
 			qoute = (qoute == 1) ? 0 : 1;
+			if (g_to_skip == 1 && tmp[i - 1] == '\\')
+			{
+				qoute = 0;
+				g_to_skip = 0;
+			}
+		}
 		if ((tmp[i] == '|' || tmp[i] == '<' || tmp[i] == ';') && qoute == 0)
 			cmd = pipe_rin_semicol(&i, &is_cmd, tmp, cmd);
 		else if (tmp[i] == '>' && qoute == 0)

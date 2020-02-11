@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/11 13:18:25 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/11 17:47:12 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,18 @@ int			norm_double_simple_qoute(int *i, int *j, t_command *tmp, char **new)
 		finition_double_qoute(i, tmp, new, j);
 	else if (tmp->str[*i] == '$')
 	{
-		*new[*j] = '\0';
+		(*new)[*j] = '\0';
 		*new = ft_strcat(*new, put_value_of_dollar(tmp->str, i), j);
 	}
 	else if (tmp->str[*i] == '\\')
 	{
-		*new = back_slach(*new, tmp->str, i, j);
+		(*new) = back_slach(*new, tmp->str, i, j);
 		if (tmp->str[*i] == '\0')
 			return (-1);
 	}
 	else
 		(*new)[(*j)++] = tmp->str[*i];
+	(*new)[*j] = '\0';
 	return (0);
 }
 
@@ -89,6 +90,7 @@ t_command	*double_simple_qoute(t_command *cmd)
 	{
 		i = 0;
 		j = 0;
+		// printf("str = #%s#\n", tmp->str);
 		while (tmp->str[i] != '\0')
 		{
 			if (norm_double_simple_qoute(&i, &j, tmp, &new) == -1)

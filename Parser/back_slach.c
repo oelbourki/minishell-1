@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:39:27 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/11 15:26:31 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*back_slach(char *new, char *str, int *i, int *j)
 {
 	g_slach = 0;
 	g_put = 0;
-	while (str[*i] != '\0')
+	while (str[*i] != '\0' && ft_strchr(" \t", str[*i]) == NULL)
 	{
 		if (str[*i] == '\\')
 			putbachslach(str, new, i, j);
@@ -46,11 +46,21 @@ char	*back_slach(char *new, char *str, int *i, int *j)
 			return (new);
 		}
 		else
+		{
+			if (str[(*i)] == '"' && g_slach % 2 == 0)
+			{
+				(*i) -= 1;
+				break ;
+			}
 			new[(*j)++] = str[(*i)];
+			if ((new[(*j) - 1] == '"' && str[(*i) + 1] == '"'))
+				break ;
+		}
 		if (str[*i] == '\0')
 			break ;
 		*i += 1;
 	}
 	new[*j] = '\0';
+	// printf("new = #%s#\n", new);
 	return (new);
 }
