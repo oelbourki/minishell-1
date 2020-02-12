@@ -6,11 +6,12 @@
 #    By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/02/11 15:16:21 by ibaali           ###   ########.fr        #
+#    Updated: 2020/02/12 16:15:11 by ibaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = 	Parser/add_var_env_list.c					\
+	 	Parser/print_command.c						\
 		Parser/back_slach.c							\
 		Parser/helped.c								\
 		Parser/list_command.c						\
