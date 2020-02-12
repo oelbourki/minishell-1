@@ -6,35 +6,47 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:32:43 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 22:22:27 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:04:34 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		end(int last, int input, int fd[2])
+void	closeall(int i)
 {
-	if (last == 1)
-		close(fd[0]);
-	if (input != 0)
-		close(input);
-	close(fd[1]);
-	return (fd[0]);
+	int f;
+
+	f = 0;
+	while (f < i)
+	{
+		close(g_dff[f][0]);
+		close(g_dff[f][1]);
+		f++;
+	}
 }
 
-void	dupx(int first, int last, int input, int fd[2])
+void	dupx(int i, int n)
 {
-	if (first == 1 && last == 0 && input == 0)
-		dup2(fd[1], 1);
-	else if (first == 0 && last == 0 && input != 0)
-	{
-		dup2(input, 0);
-		dup2(fd[1], 1);
-	}
-	else
-		dup2(input, 0);
 	if (g_multi_redout == 1)
 		dup2(g_out_fd, 1);
 	if (g_mul_redin == 1)
 		dup2(g_in_fd, 0);
+	if (i == 0)
+	{
+		close(g_dff[i][0]);
+		dup2(g_dff[i][1], 1);
+	}
+	else if (i == n - 1)
+	{
+		close(g_dff[i - 1][1]);
+		dup2(g_dff[i - 1][0], 0);
+		closeall(i - 1);
+	}
+	else if (i >= 0 && i != 0 && i != n - 1)
+	{
+		dup2(g_dff[i - 1][0], STDIN_FILENO);
+		close(g_dff[i][0]);
+		closeall(i);
+		dup2(g_dff[i][1], STDOUT_FILENO);
+	}
 }

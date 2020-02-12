@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+         #
+#    By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/02/12 16:15:11 by ibaali           ###   ########.fr        #
+#    Updated: 2020/02/12 16:47:42 by oel-bour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ LIBRARY = need/gnl.a need/libft.a need/libftprintf.a
 
 NAME = minishell
 
-FLAGS = -Wextra -Wall -Werror -fsanitize=address -g
+FLAGS = -Wextra -Wall -Werror
 
 INCLUDE = include
 

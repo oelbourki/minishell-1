@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 16:12:40 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 16:46:24 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	minishell(int argc, char **argv, char **envp, char **tmp)
 	signal(SIGINT, signal_int);
 	signal(SIGQUIT, signal_quit);
 	*tmp = ft_strdup("");
+	g_home = var("HOME");
 }
 
 int		control_d(char **line, char **tmp)
@@ -45,6 +46,7 @@ int		control_d(char **line, char **tmp)
 		ft_lstclear_command(&g_command);
 		ft_lstclear_env(&g_environt);
 		ft_lstclear_env(&g_variables);
+		free(g_home);
 		exit(0);
 	}
 	return (0);
@@ -78,7 +80,7 @@ void	color_prompt(void)
 	i = 0;
 	ft_memset(buff, 0, 1000);
 	path = getcwd(buff, 1000);
-	if (ft_strncmp(path, "/Users/ibaali/", ft_strlen("/Users/ibaali/")) == 0)
+	if (ft_strncmp(path, g_home, ft_strlen(g_home)) == 0)
 	{
 		while (path[i] != '\0')
 		{

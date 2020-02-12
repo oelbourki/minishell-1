@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:28:42 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 22:55:39 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:10:48 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ void	close_fd(void)
 	}
 }
 
-int		child(char **arg, int first, int last, int input)
+int		child(char **arg, int first, int last)
 {
-	dupx(first, last, input, g_fd);
+	dupx(first, last);
 	if (built_child(arg))
 	{
-		if (execve(arg[0], &arg[0], g_environ))
-			perror("exceve");
+		execve(arg[0], &arg[0], g_environ);
+		perror("exceve");
 	}
 	close_fd();
 	return (1);
 }
 
-int		ft_exx(char **arg, int first, int last, int input)
+int		ft_exx(char **arg, int i, int n)
 {
 	if (arg == NULL || arg[0] == NULL)
 		return (-1);
-	pipe(g_fd);
+	pipe(g_dff[g_var.j]);
 	if (is_cmd(arg[0]) && g_p == 0 && g_multi_redout == 0 && g_mul_redin == 0)
 		return (built(arg));
 	if ((g_pid = fork()) == -1)
@@ -94,13 +94,9 @@ int		ft_exx(char **arg, int first, int last, int input)
 		return (1);
 	}
 	else if (g_pid == 0)
-		return (child(arg, first, last, input));
-	else
-		waitpid(g_pid, &g_status, 0);
-	if (WIFEXITED(g_status))
-		g_status = WEXITSTATUS(g_status);
+		return (child(arg, i, n));
 	close_fd();
 	g_multi_redout = 0;
 	g_mul_redin = 0;
-	return (end(last, input, g_fd));
+	return (0);
 }

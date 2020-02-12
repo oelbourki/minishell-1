@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 22:53:57 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:19:39 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**help_convert1(t_command *counter)
 		if (counter->what == COMMAND && to_lower(&counter) == 1)
 		{
 			if ((help_convert(counter) == NULL || !(tmp = path(counter->str))
-			|| !(g_argv[i] = ft_strdup(tmp))) && !ft_free(&tmp))
+			|| !(g_argv[i] = ft_strdup(tmp))) && ft_free(&tmp))
 				return (NULL);
 		}
 		else if (counter->what != REDIN && counter->what != REDOUT

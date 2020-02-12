@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 23:00:48 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:19:18 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,66 @@
 
 void	help_the_main(void)
 {
-	while (g_var.j < g_var.n - 1)
+	while (g_var.j < g_var.n)
 	{
 		g_p = 1;
+		g_var.arg = NULL;
 		g_var.arg = convert(g_var.pipe[g_var.j]);
-		g_var.input = ft_exx(g_var.arg, g_var.first, 0, g_var.input);
+		if (!g_var.arg)
+			break ;
+		ft_exx(g_var.arg, g_var.j, g_var.n);
 		ft_free_star(g_var.arg);
-		g_var.first = 0;
 		g_var.j++;
 	}
+}
+
+void	waitall(int g)
+{
+	int f;
+	int i;
+
+	f = 0;
+	while (f < g)
+	{
+		close(g_dff[f][0]);
+		close(g_dff[f][1]);
+		f++;
+	}
+	i = 0;
+	while (i < g)
+	{
+		wait(&g_status);
+		if (WIFEXITED(g_status))
+			g_status = WEXITSTATUS(g_status);
+		i++;
+	}
+}
+
+int		help_the_main1(void)
+{
+	if (g_var.semi[g_var.i] != NULL)
+	{
+		g_var.j = 0;
+		g_var.arg = NULL;
+		g_var.pipe = get_pipe(g_var.semi[g_var.i], &g_var.n);
+		if (g_p == 0)
+		{
+			if (!(g_var.arg = convert(g_var.pipe[g_var.j])))
+				return (1);
+			ft_exx(g_var.arg, -1, -1);
+			ft_free_star(g_var.arg);
+			free(g_var.pipe);
+			waitall(1);
+		}
+		else
+		{
+			help_the_main();
+			free(g_var.pipe);
+			waitall(g_var.j);
+		}
+		g_p = 0;
+	}
+	return (0);
 }
 
 int		the_main(t_command *head)
@@ -36,18 +87,7 @@ int		the_main(t_command *head)
 	g_var.semi = get_semi(head, &g_var.m);
 	while (g_var.i < g_var.m)
 	{
-		if (g_var.semi[g_var.i] != NULL)
-		{
-			g_var.j = 0;
-			g_var.first = 1;
-			g_var.pipe = get_pipe(g_var.semi[g_var.i], &g_var.n);
-			help_the_main();
-			g_var.arg = convert(g_var.pipe[g_var.j]);
-			ft_exx(g_var.arg, g_var.first, 1, g_var.input);
-			ft_free_star(g_var.arg);
-			free(g_var.pipe);
-			g_p = 0;
-		}
+		help_the_main1();
 		g_var.i++;
 	}
 	free(g_var.semi);

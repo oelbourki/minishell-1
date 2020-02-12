@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_ex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:06:50 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 16:17:10 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_command	**get_pipe(t_command *head, int *n)
 			break ;
 		if (head->what == PIPE)
 		{
+			g_p = 1;
 			tab[i] = head->next;
 			i++;
 		}

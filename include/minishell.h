@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 15:18:22 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 16:45:32 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef	struct			s_vars
 	t_command			**pipe;
 	int					input;
 	char				**arg;
+	int					g_pipe;
 }						t_vars;
 
 static char				*g_commands[] = {
@@ -73,6 +74,7 @@ static char				*g_commands[] = {
 	"var",
 };
 
+int						g_dff[1000][2];
 char					*g_tmp;
 char					*g_line;
 int						g_pid;
@@ -84,6 +86,7 @@ int						g_out_fd;
 int						g_in_fd;
 int						g_fd[2];
 struct stat				g_buffer;
+char					*g_home;
 char					**g_argv;
 char					g_buff[100];
 t_command				*g_counter;
@@ -97,9 +100,8 @@ char					**g_environ;
 
 int						to_lower(t_command **counter);
 int						error(void);
+void					dupx(int first, int last);
 int						end(int last, int input, int fd[2]);
-void					dupx(int first, int last,
-							int input, int fd[2]);
 int						ft_free(char **arg);
 int						ft_print(char *s);
 int						ft_free_star(char **arg);
@@ -128,7 +130,7 @@ char					**convert(t_command *head);
 void					push_back_ex(t_env **head, t_env *data, char **s);
 int						env_var(t_env *ls);
 int						is_cmd(char *sem);
-int						ft_exx(char **arg, int first, int last, int input);
+int						ft_exx(char **arg, int first, int last);
 int						cd(char *s);
 int						pwd();
 int						export(char **arg);
@@ -157,5 +159,5 @@ char					*back_slach(char *new, char *str, int *i, int *j);
 t_command				*parse_error(t_command **cmd);
 void					free_all(void);
 void					color_prompt(void);
-
+void					closeall(int i);
 #endif
