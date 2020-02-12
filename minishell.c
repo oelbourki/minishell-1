@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/11 15:00:01 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 13:03:02 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int		main(int argc, char **argv, char **envp)
 		g_command = parse(g_line, g_command);
 		g_command = double_simple_qoute(g_command);
 		g_command = parse_error(&g_command);
-		print_command(g_command);
-		printf("---------------------------------------\n");
+		// print_command(g_command);
+		// printf("---------------------------------------\n");
 		the_main(g_command);
 		ft_lstclear_command(&g_command);
 		free(g_line);

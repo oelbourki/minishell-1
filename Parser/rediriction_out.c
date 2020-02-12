@@ -6,13 +6,13 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:19:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 13:02:00 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_command	*doubleoutred(int *i, char *t)
+t_command	*doubleoutred(int *i, char *t, t_command *cmd)
 {
 	t[1] = '>';
 	t[2] = '\0';
@@ -21,7 +21,10 @@ t_command	*doubleoutred(int *i, char *t)
 	if (g_to_skip == 0)
 		return (ft_lstnew_command(t, DOUBLEREDOUT));
 	else
+	{
+		ft_lstadd_back_command(&cmd, ft_lstnew_command(">", STRING));
 		return (ft_lstnew_command(t, REDOUT));
+	}
 }
 
 t_command	*simpleoutred(char *t, char *tmp, int *i)
@@ -53,7 +56,7 @@ t_command	*rediriction_out(int *i, int *is_cmd, char *tmp, t_command *cmd)
 	t[1] = '\0';
 	cmd = putspacecmd(i, is_cmd, tmp, cmd);
 	if (tmp[*i + 1] == '>')
-		node = doubleoutred(i, t);
+		node = doubleoutred(i, t, cmd);
 	else
 		node = simpleoutred(t, tmp, i);
 	ft_lstadd_back_command(&cmd, node);

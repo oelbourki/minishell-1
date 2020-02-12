@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/11 16:46:43 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 13:03:10 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_command	*putspacecmd(int *fin, int *is_cmd, char *tmp, t_command *cmd)
 		else
 			node = ft_lstnew_command(a_free, STRING);
 		ft_lstadd_back_command(&cmd, node);
-		printf("cmdooo = #%s#\n", node->str);
 	}
 	if (g_start < *fin)
 		*is_cmd = 1;
