@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 16:19:39 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:27:08 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,13 @@ char	**help_convert1(t_command *counter)
 
 	g_argv = (char**)ft_calloc(4096, sizeof(char*));
 	i = 0;
-	while (counter)
+	while (counter && !(counter->what == PIPE || counter->what == SEMICOL))
 	{
-		if (counter->what == PIPE || counter->what == SEMICOL)
-			break ;
 		if (do_somein_1(&counter) == -1 || do_someout_1(&counter) == -1)
 			return (NULL);
 		if (counter->what == COMMAND && to_lower(&counter) == 1)
 		{
+			tmp = NULL;
 			if ((help_convert(counter) == NULL || !(tmp = path(counter->str))
 			|| !(g_argv[i] = ft_strdup(tmp))) && ft_free(&tmp))
 				return (NULL);
