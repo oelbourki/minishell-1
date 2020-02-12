@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/09 23:08:31 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 15:18:22 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ char					*put_value_of_dollar(char *str, int *i);
 char					*back_slach(char *new, char *str, int *i, int *j);
 t_command				*parse_error(t_command **cmd);
 void					free_all(void);
+void					color_prompt(void);
 
 #endif

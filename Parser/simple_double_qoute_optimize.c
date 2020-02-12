@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/11 17:47:12 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 14:48:15 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int			norm_double_simple_qoute(int *i, int *j, t_command *tmp, char **new)
 	}
 	else
 		(*new)[(*j)++] = tmp->str[*i];
-	(*new)[*j] = '\0';
 	return (0);
 }
 
@@ -90,7 +89,6 @@ t_command	*double_simple_qoute(t_command *cmd)
 	{
 		i = 0;
 		j = 0;
-		// printf("str = #%s#\n", tmp->str);
 		while (tmp->str[i] != '\0')
 		{
 			if (norm_double_simple_qoute(&i, &j, tmp, &new) == -1)

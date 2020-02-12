@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 13:03:10 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 16:12:15 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,30 @@ t_command	*putspacecmd(int *fin, int *is_cmd, char *tmp, t_command *cmd)
 	return (cmd);
 }
 
+void		set_qoute(int *qoute, int i, char *tmp)
+{
+	(*qoute) = ((*qoute) == 1) ? 0 : 1;
+	if (g_to_skip == 1 && tmp[i - 1] == '\\')
+	{
+		(*qoute) = 0;
+		g_to_skip = 0;
+	}
+}
+
 void		init_parse_var(int *qoute, int *is_cmd)
 {
 	g_start = 0;
 	*is_cmd = 0;
 	*qoute = 0;
+}
+
+int			skip_or_fin(char c)
+{
+	if (c == '\\')
+		g_to_skip = (g_to_skip == 0) ? 1 : 0;
+	if (c == '\0')
+		return (1);
+	return (0);
 }
 
 t_command	*parse(char *line, t_command *cmd)
@@ -62,47 +81,16 @@ t_command	*parse(char *line, t_command *cmd)
 		if (ft_strchr(" \t", tmp[i]) != NULL && qoute == 0)
 			cmd = putspacecmd(&i, &is_cmd, tmp, cmd);
 		if (tmp[i] == '\'' || tmp[i] == '\"')
-		{
-			qoute = (qoute == 1) ? 0 : 1;
-			if (g_to_skip == 1 && tmp[i - 1] == '\\')
-			{
-				qoute = 0;
-				g_to_skip = 0;
-			}
-		}
+			set_qoute(&qoute, i, tmp);
 		if ((tmp[i] == '|' || tmp[i] == '<' || tmp[i] == ';') && qoute == 0)
 			cmd = pipe_rin_semicol(&i, &is_cmd, tmp, cmd);
 		else if (tmp[i] == '>' && qoute == 0)
 			cmd = rediriction_out(&i, &is_cmd, tmp, cmd);
-		if (tmp[i] == '\\')
-			g_to_skip = (g_to_skip == 0) ? 1 : 0;
+		if (skip_or_fin(tmp[i]) == 1)
+			break ;
 		i++;
 	}
 	cmd = putspacecmd(&i, &is_cmd, tmp, cmd);
 	free(tmp);
 	return (cmd);
-}
-
-void		print_command(t_command *g_command)
-{
-	while (g_command != NULL)
-	{
-		ft_printf("\nnode = [%s] index = ", g_command->str);
-		if (g_command->what == DOUBLEREDOUT)
-			ft_printf("DOUBLEREDOUT");
-		else if (g_command->what == REDIN)
-			ft_printf("REDIN\n");
-		else if (g_command->what == REDOUT)
-			ft_printf("REDOUT\n");
-		else if (g_command->what == SEMICOL)
-			ft_printf("SEMICOL\n");
-		else if (g_command->what == COMMAND)
-			ft_printf("COMMAND\n");
-		else if (g_command->what == STRING)
-			ft_printf("STRING\n");
-		else if (g_command->what == PIPE)
-			ft_printf("PIPE\n");
-		g_command = g_command->next;
-	}
-	ft_printf("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 13:03:02 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/12 16:12:40 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,49 @@ int		control_d(char **line, char **tmp)
 	return (0);
 }
 
+void	nrom_color_prompt(char **prompt)
+{
+	ft_putstr_fd("\033[1;32m", 1);
+	ft_putstr_fd(*prompt, 1);
+	free(*prompt);
+	ft_putstr_fd("\033[0m", 1);
+	ft_putstr_fd(" on ", 1);
+	ft_putstr_fd("\033[1;31m", 1);
+	ft_putstr_fd(" master!", 1);
+	ft_putstr_fd("\033[0m", 1);
+	ft_putstr_fd("\033[0;36m", 1);
+	ft_putstr_fd(" ⌚ 15:13:47", 1);
+	ft_putstr_fd("\033[0m", 1);
+	ft_putstr_fd("\n$ ", 1);
+}
+
 void	color_prompt(void)
 {
-	ft_putstr_fd("\033[1;31m", 1);
-	ft_putstr_fd("root@e120e15p3# ", 1);
-	ft_putstr_fd("\033[0m", 1);
+	char	buff[1000];
+	char	*path;
+	int		slach;
+	int		i;
+	char	*prompt;
+
+	slach = 0;
+	i = 0;
+	ft_memset(buff, 0, 1000);
+	path = getcwd(buff, 1000);
+	if (ft_strncmp(path, "/Users/ibaali/", ft_strlen("/Users/ibaali/")) == 0)
+	{
+		while (path[i] != '\0')
+		{
+			if (path[i] == '/')
+				slach += 1;
+			if (slach == 3)
+				break ;
+			i++;
+		}
+		prompt = ft_strjoin("~", path + i);
+	}
+	else
+		prompt = ft_strdup(path);
+	nrom_color_prompt(&prompt);
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -80,8 +118,6 @@ int		main(int argc, char **argv, char **envp)
 		g_command = parse(g_line, g_command);
 		g_command = double_simple_qoute(g_command);
 		g_command = parse_error(&g_command);
-		// print_command(g_command);
-		// printf("---------------------------------------\n");
 		the_main(g_command);
 		ft_lstclear_command(&g_command);
 		free(g_line);
