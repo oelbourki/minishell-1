@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:35:38 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/11 13:13:23 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/16 12:54:28 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_g_variables(char *new_str, char *var, int *j)
 	g_var_tmp = g_variables;
 	while (g_var_tmp != NULL)
 	{
-		if (ft_strncmp(var, g_var_tmp->variable, ft_strlen(var)) == 0)
+		if (ft_strcmp(var, g_var_tmp->variable) == 0)
 		{
 			k = 0;
 			while (g_var_tmp->value[k] != '\0')
@@ -63,7 +63,7 @@ void	set_g_environt(char *new_str, char *var)
 	g_var_tmp = g_environt;
 	while (g_var_tmp != NULL)
 	{
-		if (ft_strncmp(var, g_var_tmp->variable, ft_strlen(var)) == 0)
+		if (ft_strcmp(var, g_var_tmp->variable) == 0)
 		{
 			k = 0;
 			while (g_var_tmp->value[k] != '\0')
