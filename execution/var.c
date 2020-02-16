@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:08:17 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/02/16 12:24:21 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char		*var(char *s)
 	i = 0;
 	while (cmd)
 	{
-		if (ft_strncmp(s, cmd->variable, ft_strlen(s)) == 0)
+		if (ft_strcmp(s, cmd->variable) == 0)
 			return (ft_strdup((cmd->value)));
 		cmd = cmd->next;
 	}

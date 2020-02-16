@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 16:46:24 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/16 12:23:28 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	minishell(int argc, char **argv, char **envp, char **tmp)
 	signal(SIGINT, signal_int);
 	signal(SIGQUIT, signal_quit);
 	*tmp = ft_strdup("");
+
 	g_home = var("HOME");
 }
 
