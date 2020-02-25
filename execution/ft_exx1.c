@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:32:43 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 15:04:34 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:31:15 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ void	closeall(int i)
 void	dupx(int i, int n)
 {
 	if (g_multi_redout == 1)
+	{
 		dup2(g_out_fd, 1);
+		close(g_dff[i][1]);
+	}
 	if (g_mul_redin == 1)
+	{
 		dup2(g_in_fd, 0);
+		close(g_dff[i - 1][0]);
+	}
 	if (i == 0)
 	{
 		close(g_dff[i][0]);

@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 17:27:08 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:38:53 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@ char	*help_convert(t_command *head)
 	if (!(r = help_convert2(counter)) && counter->str != NULL &&
 	!ft_strcmp("export", counter->str))
 	{
-		if (counter->next != NULL && counter->next->next != NULL &&
-		counter->next->next->str != NULL &&
-		!is_string(counter->next->next->str))
-		{
-			ft_printf("bash: export: `%s': not a valid identifier\n",
-			counter->next->next->str);
-			g_status = 1;
-			return (NULL);
-		}
 	}
 	else if (r == 1)
 		return (NULL);
@@ -70,8 +61,8 @@ char	**help_convert1(t_command *counter)
 		if (counter->what == COMMAND && to_lower(&counter) == 1)
 		{
 			tmp = NULL;
-			if ((help_convert(counter) == NULL || !(tmp = path(counter->str))
-			|| !(g_argv[i] = ft_strdup(tmp))) && ft_free(&tmp))
+			if ((help_convert(counter) == NULL)
+			|| !(g_argv[i] = path(counter->str)))
 				return (NULL);
 		}
 		else if (counter->what != REDIN && counter->what != REDOUT
