@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:18:31 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/01 11:43:27 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 11:51:59 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,6 @@ void		free_tmp_strdup(t_command *tmp, char *new)
 	free(a_free);
 }
 
-void		help_double_simple_qoute(t_command *tmp, char **new, int i, int j)
-{
-	if (ft_strcmp(tmp->str, "\\") == 0)
-	{
-		tmp->str[0] = ' ';
-		tmp = tmp->next;
-		return ;
-	}
-	while (tmp->str[i] != '\0')
-	{
-		if (norm_double_simple_qoute(&i, &j, tmp, new) == -1)
-			break ;
-		i++;
-	}
-	(*new)[j] = '\0';
-	free_tmp_strdup(tmp, *new);
-}
-
 t_command	*double_simple_qoute(t_command *cmd)
 {
 	t_command	*tmp;
@@ -107,20 +89,6 @@ t_command	*double_simple_qoute(t_command *cmd)
 	{
 		i = 0;
 		j = 0;
-		// if (ft_strcmp(tmp->str, "\\") == 0)
-		// {
-		// 	tmp->str[0] = ' ';
-		// 	tmp = tmp->next;
-		// 	continue ;
-		// }
-		// while (tmp->str[i] != '\0')
-		// {
-		// 	if (norm_double_simple_qoute(&i, &j, tmp, &new) == -1)
-		// 		break ;
-		// 	i++;
-		// }
-		// new[j] = '\0';
-		// free_tmp_strdup(tmp, new);
 		help_double_simple_qoute(tmp, &new, i, j);
 		tmp = tmp->next;
 	}

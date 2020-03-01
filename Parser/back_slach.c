@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:39:27 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 14:42:12 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 12:14:46 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		skipped_double_simple_qoute(char *str, int *i, char *new, int *j)
 		return (-1);
 	}
 	new[(*j)++] = str[(*i)];
+	g_slach = 0;
 	if ((new[(*j) - 1] == '"' && str[(*i) + 1] == '"') ||
 	(new[(*j) - 1] == '\'' && str[(*i) + 1] == '\''))
 		return (-1);

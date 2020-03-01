@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 16:45:32 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/01 11:48:52 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,4 +160,10 @@ t_command				*parse_error(t_command **cmd);
 void					free_all(void);
 void					color_prompt(void);
 void					closeall(int i);
+void					help_double_simple_qoute(t_command *tmp, char **new,
+														int i, int j);
+int						norm_double_simple_qoute(int *i, int *j,
+												t_command *tmp, char **new);
+void					free_tmp_strdup(t_command *tmp, char *new);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:32:46 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/01 11:15:36 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 11:45:35 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,22 @@ char	*ft_strcat(char *dest, char *src, int *j)
 	free(dest);
 	free(src);
 	return (new);
+}
+
+void	help_double_simple_qoute(t_command *tmp, char **new, int i, int j)
+{
+	if (ft_strcmp(tmp->str, "\\") == 0)
+	{
+		tmp->str[0] = ' ';
+		tmp = tmp->next;
+		return ;
+	}
+	while (tmp->str[i] != '\0')
+	{
+		if (norm_double_simple_qoute(&i, &j, tmp, new) == -1)
+			break ;
+		i++;
+	}
+	(*new)[j] = '\0';
+	free_tmp_strdup(tmp, *new);
 }
