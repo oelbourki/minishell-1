@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/12 16:12:15 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 11:31:59 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void		init_parse_var(int *qoute, int *is_cmd)
 	*qoute = 0;
 }
 
-int			skip_or_fin(char c)
+int			skip_or_fin(char c, char cplus)
 {
-	if (c == '\\')
+	if (c == '\\' && cplus != ' ')
 		g_to_skip = (g_to_skip == 0) ? 1 : 0;
 	if (c == '\0')
 		return (1);
@@ -86,7 +86,7 @@ t_command	*parse(char *line, t_command *cmd)
 			cmd = pipe_rin_semicol(&i, &is_cmd, tmp, cmd);
 		else if (tmp[i] == '>' && qoute == 0)
 			cmd = rediriction_out(&i, &is_cmd, tmp, cmd);
-		if (skip_or_fin(tmp[i]) == 1)
+		if (skip_or_fin(tmp[i], tmp[i + 1]) == 1)
 			break ;
 		i++;
 	}

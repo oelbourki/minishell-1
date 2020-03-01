@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/16 12:23:28 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 11:33:11 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ int		main(int argc, char **argv, char **envp)
 		g_tmp = ft_strdup("");
 		g_command = parse(g_line, g_command);
 		g_command = double_simple_qoute(g_command);
-		g_command = parse_error(&g_command);
-		the_main(g_command);
+		// g_command = parse_error(&g_command);
+		print_command(g_command);
+		// the_main(g_command);
 		ft_lstclear_command(&g_command);
 		free(g_line);
 	}

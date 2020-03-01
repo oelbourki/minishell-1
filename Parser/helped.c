@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:32:46 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/01 11:15:36 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ char	*ft_strcat(char *dest, char *src, int *j)
 	}
 	while (src[i] != '\0')
 		new[(*j)++] = src[i++];
+	free(dest);
+	free(src);
 	return (new);
 }
