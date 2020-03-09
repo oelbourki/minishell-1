@@ -6,7 +6,7 @@
 #    By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/02/12 17:29:16 by oel-bour         ###   ########.fr        #
+#    Updated: 2020/03/09 09:57:33 by oel-bour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC = 	Parser/add_var_env_list.c					\
 		execution/var.c								\
 		minishell.c
 
-LIBRARY = need/gnl.a need/libft.a need/libftprintf.a
+LIBRARY = libft.a
 
 NAME = minishell
 
@@ -54,9 +54,10 @@ CC = gcc
 
 all : $(NAME)
 
-$(NAME) :
+$(NAME) : $(LIBRARY)
 	@$(CC) $(FLAGS) $(SRC) $(LIBRARY) -I $(INCLUDE) -o $(NAME)
-
+$(LIBRARY):
+	@make -C libft
 clean :
 	@rm -rf $(NAME)
 

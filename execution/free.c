@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:24:32 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 15:59:15 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/08 13:44:11 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,22 @@ int		ft_free(char **arg)
 	return (1);
 }
 
+int		ft_free_star_ok(char **arg)
+{
+	int i;
+
+	if (arg == NULL)
+		return (0);
+	i = 0;
+	while (arg[i] != NULL)
+	{
+		puts("dealloc");
+		free(arg[i]);
+		i++;
+	}
+	return (0);
+}
+
 int		ft_free_star(char **arg)
 {
 	int i;
@@ -27,9 +43,9 @@ int		ft_free_star(char **arg)
 	if (arg == NULL)
 		return (0);
 	i = 0;
-	while (arg[i])
+	while (arg[i] != NULL)
 	{
-		ft_free(&arg[i]);
+		free(arg[i]);
 		i++;
 	}
 	free(arg);

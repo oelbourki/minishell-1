@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:03:33 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/08 12:48:32 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	help_cd(char *s, char *h)
 		ft_strlcat(g_buff, s + 1, sizeof(g_buff));
 	}
 	else
+	{
 		ft_strlcpy(g_buff, s, sizeof(g_buff));
+		free(h);
+	}
 }
 
 int		cd(char *s)
@@ -36,17 +39,19 @@ int		cd(char *s)
 	char *tmp;
 
 	ft_memset(g_buff, 0, 100);
-	h = var("HOME");
-	if (h != NULL)
+	tmp = var("HOME");
+	if (tmp != NULL)
 	{
-		tmp = h;
-		h = ft_strjoin(h, "/");
+		h = ft_strjoin(tmp, "/");
 		free(tmp);
+		tmp = NULL;
 	}
 	else
 		return (ft_print("bash: cd: HOME not set\n"));
 	if (s == NULL)
 		s = h;
+	puts(s);
+	puts(h);
 	help_cd(s, h);
 	if (chdir(g_buff) != 0)
 	{

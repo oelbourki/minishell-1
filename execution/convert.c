@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:46 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/19 15:38:53 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/08 13:41:17 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**help_convert1(t_command *counter)
 	char	*tmp;
 	int		i;
 
-	g_argv = (char**)ft_calloc(4096, sizeof(char*));
+	ft_memset(g_argv, 0, 4096);
 	i = 0;
 	while (counter && !(counter->what == PIPE || counter->what == SEMICOL))
 	{
@@ -66,7 +66,7 @@ char	**help_convert1(t_command *counter)
 				return (NULL);
 		}
 		else if (counter->what != REDIN && counter->what != REDOUT
-		&& counter->what != DOUBLEREDOUT)
+		&& counter->what != DOUBLEREDOUT && !g_mul_redin && !g_multi_redout)
 			g_argv[i] = ft_strdup(counter->str);
 		counter = counter->next;
 		i++;

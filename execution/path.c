@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:51:23 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 15:54:42 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/08 10:45:51 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*help_path(char *s, char *f)
 			return (ft_strdup(path[i]) + ft_free_star(path));
 		i++;
 	}
+	ft_free_star(path);
 	return (NULL);
 }
 
@@ -51,6 +52,7 @@ char	*path(char *f)
 	}
 	if ((tmp = help_path(s, f)) && ft_free(&s))
 		return (tmp);
+	free(s);
 	ft_printf("bash: %s: command not found\n", f);
 	g_status = 1;
 	return (NULL);

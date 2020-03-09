@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 16:19:18 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/08 13:45:32 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	help_the_main(void)
 		if (!g_var.arg)
 			break ;
 		ft_exx(g_var.arg, g_var.j, g_var.n);
-		ft_free_star(g_var.arg);
+		ft_free_star_ok(g_var.arg);
 		g_var.j++;
 	}
 }
@@ -61,14 +61,15 @@ int		help_the_main1(void)
 			if (!(g_var.arg = convert(g_var.pipe[g_var.j])))
 				return (1);
 			ft_exx(g_var.arg, -1, -1);
-			ft_free_star(g_var.arg);
-			free(g_var.pipe);
+			ft_free_star_ok(g_var.arg);
+			// free(g_var.arg);
+			// free(g_var.pipe);
 			waitall(1);
 		}
 		else
 		{
 			help_the_main();
-			free(g_var.pipe);
+			// free(g_var.pipe);
 			waitall(g_var.j);
 		}
 		g_p = 0;
@@ -78,6 +79,8 @@ int		help_the_main1(void)
 
 int		the_main(t_command *head)
 {
+	g_argv = (char**)ft_calloc(4096, sizeof(char*));
+	g_var.arg = g_argv;
 	if (head == NULL)
 	{
 		g_status = 1;
@@ -88,8 +91,11 @@ int		the_main(t_command *head)
 	while (g_var.i < g_var.m)
 	{
 		help_the_main1();
+		free(g_var.pipe);
+		// ft_free_star(g_var.arg);
 		g_var.i++;
 	}
+	free(g_argv);
 	free(g_var.semi);
 	return (0);
 }

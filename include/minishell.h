@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/01 11:48:52 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 09:42:39 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
-# include "get_next_line.h"
 # include <fcntl.h>
 # include <sys/stat.h>
 # include "libft.h"
-# include "libftprintf.h"
 
 typedef	struct			s_command
 {
@@ -165,5 +163,5 @@ void					help_double_simple_qoute(t_command *tmp, char **new,
 int						norm_double_simple_qoute(int *i, int *j,
 												t_command *tmp, char **new);
 void					free_tmp_strdup(t_command *tmp, char *new);
-
+int		ft_free_star_ok(char **arg);
 #endif

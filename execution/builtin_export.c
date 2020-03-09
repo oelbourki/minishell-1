@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:35:26 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/19 15:59:03 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/08 11:04:42 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	help_export(char *arg)
 	t_env	*data;
 	char	**s;
 
-	data = (t_env *)malloc(sizeof(t_env));
+	data = NULL;
 	s = ft_split(arg, '=');
-	data->variable = ft_strdup(s[0]);
-	data->value = ft_strdup(s[1]);
-	data->next = NULL;
 	push_back_ex(&g_environt, data, s);
 	ft_free_star(s);
 }
