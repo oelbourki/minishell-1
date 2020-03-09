@@ -3,61 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 22:38:18 by oel-bour          #+#    #+#             */
-/*   Updated: 2019/10/10 22:38:20 by oel-bour         ###   ########.fr       */
+/*   Created: 2019/10/10 17:23:28 by ibaali            #+#    #+#             */
+/*   Updated: 2020/03/09 13:36:36 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		is_in_set(char c, char const *set)
+static	int	deb_index(char const *s1, char const *set)
 {
-	int i;
+	int		deb;
 
-	i = 0;
-	while (set[i] != '\0')
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
+	deb = 0;
+	while (s1[deb] != '\0' && (ft_strchr(set, s1[deb]) != NULL))
+		deb++;
+	return (deb);
 }
 
-static void		iter(char const *s1, char const *set, int *i, int *j)
+static	int	fin_index(char const *s1, char const *set, int len_s1)
 {
-	while (is_in_set(s1[*i], set))
-		(*i)++;
-	while (is_in_set(s1[*j], set) && *j > 5)
-		(*j)--;
+	int		fin;
+	int		deb;
+
+	fin = len_s1;
+	deb = deb_index(s1, set);
+	while (ft_strchr(set, s1[fin - 1]) != NULL && fin > deb)
+		fin--;
+	return (fin);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
-	char	*n;
-	int		x;
-	int		j;
+	int		index_deb;
+	int		index_fin;
 	int		i;
+	char	*str;
 
 	if (s1 == NULL || set == NULL)
 		return (NULL);
-	if (set == NULL)
-		return ((char*)s1);
-	x = 0;
+	index_deb = 0;
 	i = 0;
-	j = ft_strlen(s1) - 1;
-	iter(s1, set, &i, &j);
-	n = (char*)malloc((j - i + 1) * sizeof(char) * (i < j) + 1);
-	if (n == NULL)
-		return (NULL);
-	while (i <= j)
+	index_deb = deb_index(s1, set);
+	index_fin = fin_index(s1, set, ft_strlen(s1));
+	if (index_deb == (int)ft_strlen(s1))
 	{
-		n[x] = s1[i];
-		i++;
-		x++;
+		str = (char*)malloc(1);
+		str[0] = '\0';
+		return (str);
 	}
-	n[x] = '\0';
-	return (n);
+	str = (char*)malloc((index_fin - index_deb) + 1);
+	if (str == NULL)
+		return (NULL);
+	ft_bzero(str, (index_fin - index_deb + 1));
+	while (index_fin > index_deb)
+		str[i++] = s1[index_deb++];
+	return (str);
 }

@@ -6,7 +6,7 @@
 #    By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/03/09 09:57:33 by oel-bour         ###   ########.fr        #
+#    Updated: 2020/03/09 13:39:26 by ibaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,10 @@ $(LIBRARY):
 	@make -C libft
 clean :
 	@rm -rf $(NAME)
+	@rm -rf $(LIBRARY)
 
 fclean : clean
-
+	
 re :  fclean all
 
 .PHONY : all re fclean clean
