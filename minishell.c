@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/09 10:59:37 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 18:34:51 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	minishell(int argc, char **argv, char **envp, char **tmp)
 	signal(SIGINT, signal_int);
 	signal(SIGQUIT, signal_quit);
 	*tmp = ft_strdup("");
-	//wach kant ch haja hna
 	g_home = var("HOME");
 }
 
@@ -121,7 +120,6 @@ int		main(int argc, char **argv, char **envp)
 		g_command = parse(g_line, g_command);
 		g_command = double_simple_qoute(g_command);
 		g_command = parse_error(&g_command);
-		// print_command(g_command);
 		the_main(g_command);
 		ft_lstclear_command(&g_command);
 		free(g_line);

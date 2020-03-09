@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hope.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:18:53 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:13:10 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	help_the_main(void)
 {
-	while (g_var.j < g_var.n)
+	while (g_var.j < g_var.nb_pipe)
 	{
 		g_p = 1;
 		g_var.arg = NULL;
 		g_var.arg = convert(g_var.pipe[g_var.j]);
 		if (!g_var.arg)
 			break ;
-		ft_exx(g_var.arg, g_var.j, g_var.n);
+		ft_exx(g_var.arg, g_var.j, g_var.nb_pipe);
 		ft_free_star_ok(g_var.arg);
 		g_var.j++;
 	}
@@ -55,7 +55,7 @@ int		help_the_main1(void)
 	{
 		g_var.j = 0;
 		g_var.arg = NULL;
-		g_var.pipe = get_pipe(g_var.semi[g_var.i], &g_var.n);
+		g_var.pipe = get_pipe(g_var.semi[g_var.i], &g_var.nb_pipe);
 		if (g_p == 0)
 		{
 			if (!(g_var.arg = convert(g_var.pipe[g_var.j])))
@@ -77,16 +77,13 @@ int		help_the_main1(void)
 int		the_main(t_command *head)
 {
 	g_argv = (char**)ft_calloc(4096, sizeof(char*));
-	g_var.arg = g_argv;
 	if (head == NULL)
-	{
-		g_status = 1;
 		return (0);
-	}
 	init_t_vars(&g_var);
-	g_var.semi = get_semi(head, &g_var.m);
-	while (g_var.i < g_var.m)
+	g_var.semi = get_semi(head, &g_var.nb_semi);
+	while (g_var.i < g_var.nb_semi)
 	{
+		g_status = (g_status == 258) ? 258 : 0;
 		help_the_main1();
 		free(g_var.pipe);
 		g_var.i++;

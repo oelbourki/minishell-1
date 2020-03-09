@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:23:32 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 22:16:35 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:21:52 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		help_do_somein(void)
 		g_counter->next->next->what == REDIN)
 			close(g_in_fd);
 		else if (g_in_fd < 0)
-			return (error());
+			return (error(g_counter->next->str));
 	}
 	else if (g_counter->next->what == REDIN)
 		ft_print("bash: syntax error near unexpected token `<'\n");
@@ -82,7 +82,7 @@ int		help_do_someout(void)
 		== REDOUT || g_counter->next->next->what == DOUBLEREDOUT))
 			close(g_out_fd);
 		else if (g_in_fd < 0)
-			return (error());
+			return (error(g_counter->next->str));
 	}
 	else if (g_counter->next->what == REDOUT)
 		ft_print("bash: syntax error near unexpected token `>'\n");

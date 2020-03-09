@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exx1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:32:43 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:41:12 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:44:10 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	dupx(int i, int n)
 	{
 		dup2(g_dff[i - 1][0], STDIN_FILENO);
 		close(g_dff[i][0]);
-		closeall(i);
+		close(g_dff[i - 1][1]);
+		closeall(i - 1);
 		dup2(g_dff[i][1], STDOUT_FILENO);
 	}
 }

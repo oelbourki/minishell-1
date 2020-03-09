@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:06:04 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:40:16 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:32:22 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	signal_quit(int f)
 		ft_putstr_fd("Quit: 3\n", 1);
 }
 
-int		error(void)
+int		error(char *s)
 {
-	perror(NULL);
+	ft_printf("bash: %s: No such file or directory\n", s);
+	g_status = 1;
 	return (-1);
 }

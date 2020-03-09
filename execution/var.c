@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:08:17 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/16 12:24:21 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 16:15:59 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			env_var(t_env *ls)
 	tmp = ls;
 	while (tmp != NULL)
 	{
-		printf("%s=%s\n", tmp->variable, tmp->value);
+		ft_printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
 	return (1);

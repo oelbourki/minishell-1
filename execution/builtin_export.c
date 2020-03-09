@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:35:26 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:35:13 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:10:24 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		export_help(char **arg)
 			help_export(arg[i]);
 		i++;
 	}
+	g_status = 0;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:33:39 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 16:11:11 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	env(t_env *ls)
 		ft_printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
+	g_status = 0;
 	return (1);
 }
 
@@ -39,5 +40,6 @@ int	env_declarex(t_env *ls)
 		ft_printf("declare -x %s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
+	g_status = 0;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:29:26 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/09 22:16:29 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:21:57 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		help_do_somein_1(void)
 		g_counter->next->next->what == REDIN)
 			close(g_in_fd);
 		else if (g_in_fd < 0)
-			return (error());
+			return (error(g_counter->next->str));
 	}
 	else if (g_counter->next->what == REDIN)
 	{
@@ -73,13 +73,13 @@ int		help_do_someout_1(void)
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else
 			g_out_fd = open(g_counter->next->str,
-			O_RDWR | (O_APPEND | O_CREAT), S_IRWXU);
+			O_RDWR | (O_APPEND | O_CREAT), 0644);
 		g_counter->next->what = STRING;
 		if (g_counter->next->next != NULL && (g_counter->next->next->what ==
 		REDOUT || g_counter->next->next->what == DOUBLEREDOUT))
 			close(g_out_fd);
 		else if (g_out_fd < 0)
-			return (error());
+			return (error(g_counter->next->str));
 	}
 	else if (g_counter->next->what == REDOUT)
 		ft_print("bash: syntax error near unexpected token `>'\n");

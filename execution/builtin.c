@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:03:33 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/08 12:48:32 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:17:42 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,14 @@ int		cd(char *s)
 		return (ft_print("bash: cd: HOME not set\n"));
 	if (s == NULL)
 		s = h;
-	puts(s);
-	puts(h);
 	help_cd(s, h);
 	if (chdir(g_buff) != 0)
 	{
-		printf("cd: %s: No such file or directory\n", g_buff);
+		ft_printf("cd: %s: No such file or directory\n", g_buff);
 		g_status = 1;
 		return (0);
 	}
-	return (1);
+	return (((g_status = 0) == 0));
 }
 
 int		pwd(int fd)
@@ -71,10 +69,11 @@ int		pwd(int fd)
 	h = getcwd(g_buffer, 100);
 	if (h != NULL)
 	{
-		write(fd, g_buffer, strlen(g_buffer));
+		write(fd, g_buffer, ft_strlen(g_buffer));
 		write(fd, "\n", 1);
 	}
 	else
 		g_status = 1;
+	g_status = 0;
 	return (1);
 }

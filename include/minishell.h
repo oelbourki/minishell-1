@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/09 10:34:52 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:51:48 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # define SIMDOUTE 8
 # define DBLDOUTE 9
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -49,14 +47,12 @@ typedef	struct			s_env
 
 typedef	struct			s_vars
 {
-	int					n;
-	int					m;
+	int					nb_pipe;
+	int					nb_semi;
 	t_command			**semi;
 	int					i;
 	int					j;
-	int					first;
 	t_command			**pipe;
-	int					input;
 	char				**arg;
 	int					g_pipe;
 }						t_vars;
@@ -82,9 +78,11 @@ int						g_p;
 int						g_mul_redin;
 int						g_out_fd;
 int						g_in_fd;
+int						g_parse_err;
 int						g_fd[2];
 struct stat				g_buffer;
 char					*g_home;
+int						g_parse_notification;
 char					**g_argv;
 char					g_buff[100];
 t_command				*g_counter;
@@ -97,9 +95,8 @@ int						g_start;
 char					**g_environ;
 
 int						to_lower(t_command **counter);
-int						error(void);
+int						error(char *s);
 void					dupx(int first, int last);
-int						end(int last, int input, int fd[2]);
 int						ft_free(char **arg);
 int						ft_print(char *s);
 int						ft_free_star(char **arg);
@@ -163,5 +160,5 @@ void					help_double_simple_qoute(t_command *tmp, char **new,
 int						norm_double_simple_qoute(int *i, int *j,
 												t_command *tmp, char **new);
 void					free_tmp_strdup(t_command *tmp, char *new);
-int		ft_free_star_ok(char **arg);
+int						ft_free_star_ok(char **arg);
 #endif

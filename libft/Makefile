@@ -28,6 +28,7 @@ OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o \
 		whatl.o hexal.o charl.o stringl.o hexall.o whatll.o \
 		unsignedll.o whath.o extra.o ft_putstr_fd.o\
 		get_next_line.o
+	
 all:$(NAME)
 $(NAME): $(OBJ)
 	@ar -rsc $(NAME) $(OBJ)

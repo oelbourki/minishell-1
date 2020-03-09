@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 11:46:48 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 17:53:31 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_command	*pipe_token(char *t, int *is_cmd, char *tmp, int *i)
 				t[k++] = tmp[(*i)];
 		t[k] = '\0';
 		(*i) -= 1;
-		printf("tptpt = #%s#\n", t);
 		return (ft_lstnew_command(t, STRING));
 	}
 }
@@ -84,7 +83,11 @@ t_command	*pipe_rin_semicol(int *i, int *is_cmd, char *tmp, t_command *cmd)
 	if (tmp[*i] == '|')
 		node = pipe_token(t, is_cmd, tmp, i);
 	else if (tmp[*i] == '<')
+	{
+		if (tmp[*i + 1] == '>')
+			g_parse_err = 1;
 		node = redin_token(t, is_cmd, tmp, i);
+	}
 	else
 		node = semicol_token(t, is_cmd, tmp, i);
 	ft_lstadd_back_command(&cmd, node);

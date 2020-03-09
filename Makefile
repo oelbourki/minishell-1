@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+         #
+#    By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/21 15:30:32 by ibaali            #+#    #+#              #
-#    Updated: 2020/03/09 13:39:26 by ibaali           ###   ########.fr        #
+#    Updated: 2020/03/09 15:10:57 by ibaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,18 +46,22 @@ LIBRARY = libft.a
 
 NAME = minishell
 
+# FLAGS = -Wextra -Wall -Werror -fsanitize=address -g
 FLAGS = -Wextra -Wall -Werror
-
 INCLUDE = include
 
 CC = gcc
 
 all : $(NAME)
 
-$(NAME) : $(LIBRARY)
-	@$(CC) $(FLAGS) $(SRC) $(LIBRARY) -I $(INCLUDE) -o $(NAME)
-$(LIBRARY):
-	@make -C libft
+# $(NAME) : $(LIBRARY)
+# 	@$(CC) $(FLAGS) $(SRC) $(LIBRARY) -I $(INCLUDE) -o $(NAME)
+# $(LIBRARY):
+# 	@make -C libft
+
+$(NAME) :
+	@$(CC) $(FLAGS) $(SRC) libft/*.c -I $(INCLUDE) -o $(NAME)
+
 clean :
 	@rm -rf $(NAME)
 	@rm -rf $(LIBRARY)

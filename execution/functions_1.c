@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 21:55:37 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/07 18:34:55 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 15:01:26 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ int		is_string(char *s)
 
 void	init_t_vars(t_vars *var)
 {
-	var->n = 0;
-	var->m = 0;
+	var->nb_pipe = 0;
+	var->nb_semi = 0;
 	var->i = 0;
 	var->j = 0;
-	var->first = 0;
-	var->input = 0;
 	var->semi = NULL;
 	var->pipe = NULL;
 	var->arg = NULL;

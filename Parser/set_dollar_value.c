@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:35:38 by ibaali            #+#    #+#             */
-/*   Updated: 2020/02/16 12:54:28 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 17:01:07 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*set_command_return(char *new_str, char *var)
 	}
 	if (ft_strcmp(var, "0") == 0)
 	{
-		ft_strcpy(new_str, "bash");
+		ft_strcpy(new_str, "./minishell");
 		return (new_str);
 	}
 	ret_string = ft_itoa(g_status);

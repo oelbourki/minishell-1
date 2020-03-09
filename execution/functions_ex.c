@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_ex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:06:50 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/08 11:11:34 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:52:03 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_command	**get_semi(t_command *head, int *n)
 	if (head == NULL)
 		return (NULL);
 	counter = head;
-	tab = (t_command**)ft_calloc(10, sizeof(t_command*));
+	tab = (t_command**)ft_calloc(4096, sizeof(t_command*));
 	i = 1;
 	if (head->what != SEMICOL)
 		tab[0] = head;
@@ -29,8 +29,11 @@ t_command	**get_semi(t_command *head, int *n)
 	{
 		if (counter->what == SEMICOL)
 		{
-			tab[i] = counter->next;
-			i++;
+			if (counter->next != NULL && counter->next->what != SEMICOL)
+			{
+				tab[i] = counter->next;
+				i++;
+			}
 		}
 		counter = counter->next;
 	}
@@ -46,7 +49,7 @@ t_command	**get_pipe(t_command *head, int *n)
 	if (head == NULL)
 		return (NULL);
 	tab = NULL;
-	tab = (t_command**)ft_calloc(10, sizeof(t_command*));
+	tab = (t_command**)ft_calloc(4096, sizeof(t_command*));
 	i = 1;
 	tab[0] = head;
 	while (head != NULL)

@@ -6,7 +6,7 @@
 /*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:13:42 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/01 11:31:59 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 18:00:47 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		init_parse_var(int *qoute, int *is_cmd)
 	g_start = 0;
 	*is_cmd = 0;
 	*qoute = 0;
+	g_parse_err = 0;
 }
 
 int			skip_or_fin(char c, char cplus)

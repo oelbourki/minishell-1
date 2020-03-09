@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:51:23 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/08 10:45:51 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:56:21 by ibaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*path(char *f)
 	if (s == NULL)
 	{
 		ft_printf("bash: %s: No such file or directory\n", f);
-		g_status = 1;
+		g_status = 127;
 		return (NULL);
 	}
 	if ((tmp = help_path(s, f)) && ft_free(&s))
