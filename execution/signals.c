@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibaali <ibaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:06:04 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/02/12 15:19:16 by ibaali           ###   ########.fr       */
+/*   Updated: 2020/03/09 10:40:16 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ void	signal_quit(int f)
 	f = 0;
 	if (g_pid != 0)
 		ft_putstr_fd("Quit: 3\n", 1);
+}
+
+int		error(void)
+{
+	perror(NULL);
+	return (-1);
 }

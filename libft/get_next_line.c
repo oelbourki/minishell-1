@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:24:10 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:11:16 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:38:29 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int			check(char **left, char **line, char *buffer)
 	tmp = *line;
 	*line = ft_strdup(*left);
 	free(tmp);
-	tmp = NULL;
 	free(*left);
 	(*left) = NULL;
 	return (0);

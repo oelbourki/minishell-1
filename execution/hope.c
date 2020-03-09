@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 10:51:56 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/08 13:45:32 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:18:53 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ int		help_the_main1(void)
 				return (1);
 			ft_exx(g_var.arg, -1, -1);
 			ft_free_star_ok(g_var.arg);
-			// free(g_var.arg);
-			// free(g_var.pipe);
 			waitall(1);
 		}
 		else
 		{
 			help_the_main();
-			// free(g_var.pipe);
 			waitall(g_var.j);
 		}
 		g_p = 0;
@@ -92,7 +89,6 @@ int		the_main(t_command *head)
 	{
 		help_the_main1();
 		free(g_var.pipe);
-		// ft_free_star(g_var.arg);
 		g_var.i++;
 	}
 	free(g_argv);

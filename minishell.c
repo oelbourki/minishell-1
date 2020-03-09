@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 08:44:20 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/08 10:43:19 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:59:37 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	minishell(int argc, char **argv, char **envp, char **tmp)
 	signal(SIGINT, signal_int);
 	signal(SIGQUIT, signal_quit);
 	*tmp = ft_strdup("");
-
+	//wach kant ch haja hna
 	g_home = var("HOME");
 }
 

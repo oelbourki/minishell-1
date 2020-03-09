@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:24:32 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/08 13:44:11 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:40:05 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		ft_free_star_ok(char **arg)
 	i = 0;
 	while (arg[i] != NULL)
 	{
-		puts("dealloc");
 		free(arg[i]);
 		i++;
 	}
@@ -72,10 +71,4 @@ void	ft_free_void_star(void **arg)
 		ft_free_void(&arg[i]);
 		i++;
 	}
-}
-
-int		error(void)
-{
-	perror(NULL);
-	return (-1);
 }

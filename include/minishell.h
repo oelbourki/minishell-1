@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:25:06 by ibaali            #+#    #+#             */
-/*   Updated: 2020/03/09 09:42:39 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:34:52 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char				*g_commands[] = {
 	"exit",
 	"var",
 };
-
+char					*g_s;
 int						g_dff[1000][2];
 char					*g_tmp;
 char					*g_line;

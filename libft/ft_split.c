@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:38:27 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/01/28 12:28:51 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:16:38 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int			count_max_word(char *s, char c)
 			max = j;
 			j = 0;
 		}
+		if (s[i] == '\0')
+			break ;
 		i++;
 	}
 	return (max);
