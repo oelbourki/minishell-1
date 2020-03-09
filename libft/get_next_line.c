@@ -6,7 +6,7 @@
 /*   By: oel-bour <oel-bour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:24:10 by oel-bour          #+#    #+#             */
-/*   Updated: 2020/03/09 10:02:54 by oel-bour         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:11:16 by oel-bour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ static int			body(char **p, char **line, char *buffer, char **left)
 	char *tmp;
 
 	**p = '\0';
+	tmp = *line;
 	*line = ft_strjoin(*line, buffer);
+	free(tmp);
 	tmp = *left;
 	*left = ft_strdup(++(*p));
 	free(tmp);
